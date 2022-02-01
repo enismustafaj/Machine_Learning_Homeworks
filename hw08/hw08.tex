@@ -1,0 +1,187 @@
+\documentclass{article}
+
+\usepackage{extramarks}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+
+\usepackage{hyperref}
+
+\usepackage{tikz}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{float,graphicx}
+
+\usepackage{pgfplots}
+
+\usepackage{adjustbox}
+
+
+\usepackage{array}
+\usepackage{pgfgantt}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Listings' Styles
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{python}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=python}
+\lstset{language=Python}
+
+\linespread{1.1}
+\captionsetup[table]{position=bottom}
+
+\pagestyle{fancy}
+\lhead{\groupName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{\today}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\setlength\parindent{0pt}
+
+\newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
+\newcommand{\hmwkDueDate}{Month d, Year}
+\newcommand{\hmwkClass}{Machine Learning}
+\newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
+\newcommand{\groupName}{\textbf{Group HB}}
+
+% Homework Number Variable
+\newcommand{\hmwkNumber}{8}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+	\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \stepcounter{#1}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \hmwkNumber \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{\hmwkNumber.#1}
+    \fi
+    \section{Problem \hmwkNumber.\arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at XX:XX}\\
+    \vspace{3in}
+}
+
+\author{\groupName \\ \hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\comment}[1]{} % Multi-line comment
+
+
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+
+
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def mandelbrot(h, w, maxit=20, r=2):
+    """Returns an image of the Mandelbrot fractal of size (h,w)."""
+    x = np.linspace(-2.5, 1.5, 4*h+1)
+    y = np.linspace(-1.5, 1.5, 3*w+1)
+    A, B = np.meshgrid(x, y)
+    C = A + B*1j
+    z = np.zeros_like(C)
+    divtime = maxit + np.zeros(z.shape, dtype=int)
+
+    for i in range(maxit):
+        z = z**2 + C
+        diverge = abs(z) > r                    # who is diverging
+        div_now = diverge & (divtime == maxit)  # who is diverging now
+        divtime[div_now] = i                    # note when
+        z[diverge] = r                          # avoid diverging too much
+
+    return divtime
+plt.imshow(mandelbrot(400, 400))
+\end{lstlisting}
+
+\end{homeworkProblem}
+\end{document}
