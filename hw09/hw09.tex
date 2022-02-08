@@ -132,6 +132,31 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+\newcounter{programmingPartCounter}
+\newcounter{programmingProblemCounter}
+
+\setcounter{programmingProblemCounter}{1}
+\nobreak\extramarks{Programming Problem \hmwkNumber \arabic{programmingProblemCounter}}{}\nobreak{}
+
+%
+% Programming Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{programmingProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{programmingProblemCounter}{\hmwkNumber.#1}
+    \fi
+    \section{Programming Problem \hmwkNumber.\arabic{programmingProblemCounter}}
+    \setcounter{programmingPartCounter}{1}
+    \enterProblemHeader{programmingProblemCounter}
+}{
+    \exitProblemHeader{programmingProblemCounter}
+}
+
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
