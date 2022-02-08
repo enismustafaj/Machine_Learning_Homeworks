@@ -86,7 +86,7 @@
 \setlength\parindent{0pt}
 
 \newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
-\newcommand{\hmwkDueDate}{Month d, Year}
+\newcommand{\hmwkDueDate}{February 15, 2022}
 \newcommand{\hmwkClass}{Machine Learning}
 \newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
 \newcommand{\groupName}{\textbf{Group HB}}
@@ -132,10 +132,36 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+
+\newcounter{programmingPartCounter}
+\newcounter{programmingProblemCounter}
+
+\setcounter{programmingProblemCounter}{1}
+\nobreak\extramarks{Programming Problem \hmwkNumber \arabic{programmingProblemCounter}}{}\nobreak{}
+
+%
+% Programming Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{programmingProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{programmingProblemCounter}{\hmwkNumber.#1}
+    \fi
+    \section{Programming Problem \hmwkNumber.\arabic{programmingProblemCounter}}
+    \setcounter{programmingPartCounter}{1}
+    \enterProblemHeader{programmingProblemCounter}
+}{
+    \exitProblemHeader{programmingProblemCounter}
+}
+
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at XX:XX}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00}\\
     \vspace{3in}
 }
 
@@ -155,33 +181,59 @@
 \begin{document}
 \maketitle
 \pagebreak
-\begin{homeworkProblem}
+\begin{homeworkProblem} 
+The disjoint events $A$, $B$, and $C$ are defined in a sample space $\Omega$. Find expressions for the following probabilities in terms of sums of the probabilities $P(\emptyset)$, $P(A)$, $P(B)$, $P(A \cup B)$, $P(A \cup C)$, $P(B \cup C)$, $P(A \cup B \cup C)$:
 
-
-\begin{lstlisting}
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-def mandelbrot(h, w, maxit=20, r=2):
-    """Returns an image of the Mandelbrot fractal of size (h,w)."""
-    x = np.linspace(-2.5, 1.5, 4*h+1)
-    y = np.linspace(-1.5, 1.5, 3*w+1)
-    A, B = np.meshgrid(x, y)
-    C = A + B*1j
-    z = np.zeros_like(C)
-    divtime = maxit + np.zeros(z.shape, dtype=int)
-
-    for i in range(maxit):
-        z = z**2 + C
-        diverge = abs(z) > r                    # who is diverging
-        div_now = diverge & (divtime == maxit)  # who is diverging now
-        divtime[div_now] = i                    # note when
-        z[diverge] = r                          # avoid diverging too much
-
-    return divtime
-plt.imshow(mandelbrot(400, 400))
-\end{lstlisting}
-
+\begin{enumerate}[a)]
+    \item the probability that exactly  two of $A$, $B$, $C$ occur (\textit{at the same time!})
+    \item the probability that exactly one of these events occurs
+\end{enumerate}
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+We consider the chance experiment of four tosses of a fair coin.
+
+\begin{enumerate}[a)]
+    \item Give the sample space $\Omega$ for this experiment and define a discrete random variable $X$ to describe the number of heads obained in four tosses of a fair coin.
+    \item Find the PMF and CDF of the defined random variable and plot the CDF.
+    \item Compute the probability of the event $X$ IS BIGGER THAN $1$.
+    \item Compute the mean of the random variable.
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Let the function $\rho$ with $\rho(x) = 
+\begin{cases}
+    c|x| (1 + x)(1 - x) & \text{if } -1 \leq x \leq 1\\
+    0 & \text{else}
+\end{cases}$
+be given.
+
+\begin{enumerate}[a)]
+    \item Compute the constant $c$, such that $\rho$ becomes a density of some random variable.
+    \item Consider a random variable $X$ with the just computed density $\rho$. Find its CDF and plot it.
+    \item Use the CDF to compute \begin{equation*}
+        P(X < -0.5), \quad P(X > 0.5), \quad P(-0.5 < X < 0.5)
+    \end{equation*}
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{programmingProblem}
+In this first programming exercise, we would like to familiarize us with typical linear algebra computing tasks. To this end, we define the vectors / matrices
+
+\begin{equation*}
+    \mathbf{a} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \quad
+    \mathbf{b} = \begin{pmatrix} -1 \\ 2 \\ 5 \end{pmatrix}, \quad
+    M = \begin{pmatrix} 2 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 2 \end{pmatrix}
+\end{equation*}
+
+\begin{enumerate}[a)]
+    \item Compute and print the inner product between $\mathbf{a}$ and $\mathbf{b}$.
+    \item Compute and print the matrix-vector product between $M$ and $\mathbf{b}$.
+    \item Compute and print the $l_{2}$ norm of $\mathbf{b}$.
+    \item Compute and print the solution $\mathbf{x}$ of the linear system of equations $M \mathbf{x} = \mathbf{b}$ using the LU factorization.
+    \item Compute and print the solution $\mathbf{x}$ of the linear system of equations $M \mathbf{x} = \mathbf{b}$ using the Cholesky factorization.
+\end{enumerate}
+\end{programmingProblem}
+
 \end{document}
