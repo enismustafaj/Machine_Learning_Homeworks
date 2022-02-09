@@ -211,9 +211,114 @@ be given.
 
 \begin{enumerate}[a)]
     \item Compute the constant $c$, such that $\rho$ becomes a density of some random variable.
+    
+    For $\rho$ to become a density of some random variable, the function must fulfill the requirement that the integral over the domain should equal to $1$.
+    
+    \begin{equation*}
+        \begin{split}
+            \int_{-\infty}^{\infty} \rho(x) \: dx & = \int_{-\infty}^{\infty} c |x| (1 + x)(1 - x) \: dx \\
+            & = \int_{-1}^{1} c |x| (1 + x)(1 - x) \: dx \\
+            & = -\int_{-1}^{0} c x (1 + x)(1 - x) \: dx + \int_{0}^{1} c x (1 + x)(1 - x) \: dx \\
+            & = c \left( -\int_{-1}^{0} x(1 + x)(1 - x) \: dx + \int_{0}^{1} x(1 + x)(1 - x) \: dx \right)
+        \end{split}
+    \end{equation*}
+    
+    To solve the inner integrals, we use the substitution $u = (1 + x)(1 - x)$:
+    
+    \begin{equation*}
+        \begin{split}
+            \int x(1 + x)(1 - x) \: dx & = -\frac{1}{2} \int u \: du \\
+            & = - \frac{u^{2}}{4} + C \\
+            & = - \frac{(1 + x)^{2} (1 - x)^{2}}{4} + C
+        \end{split}
+    \end{equation*}
+    
+    Using the result of the integral to find the value of $c$:
+    
+    \begin{equation*}
+        \begin{split}
+            \int_{-\infty}^{\infty} \rho(x) \: dx & = c \left( -\int_{-1}^{0} x(1 + x)(1 - x) \: dx + \int_{0}^{1} x(1 + x)(1 - x) \: dx \right) \\
+            & = c \left( -\left[ - \frac{(1 + x)^{2} (1 - x)^{2}}{4} \right]_{-1}^{0} + \left[ - \frac{(1 + x)^{2} (1 - x)^{2}}{4} \right]_{0}^{1} \right) \\
+            & = c \left( \frac{1}{4} + \frac{1}{4} \right) \\
+            & = \frac{c}{2}
+        \end{split}
+    \end{equation*}
+    
+    Equating this result to 1, gives the value of $c$ to be $2$.
     \item Consider a random variable $X$ with the just computed density $\rho$. Find its CDF and plot it.
+    
+    To find the CDF of the random variable $X$, one can use the property that the derivative of the CDF is the density function. Combining this with the boundaries of the range of the CDF, the CDF can be calculated in the following way:
+    
+    \begin{equation*}
+        F_{X}(x) = \begin{cases}
+            0 & x < -1 \\
+            \int_{-\infty}^{x} \rho(x) \: dx & -1 \leq x \leq 1 \\
+            1 & x > 1
+        \end{cases}
+    \end{equation*}
+    
+    \begin{equation*}
+        \begin{split}
+            \int \rho(x) \: dx & = \int 2 |x| (1 + x)(1 - x) \: dx \\
+            & = 2 \frac{x}{|x|} \int \frac{|x|}{x} |x| (1 + x)(1 - x) \: dx \\
+            & = 2 \frac{x}{|x|} \int x(1 + x)(1 - x) \: dx \\
+            & = -2 \frac{x}{|x|} \frac{x^{4} - 2x^{2}}{4} + C \\
+            & = - \frac{x(x^4 - 2x^{2})}{2|x|} + C
+        \end{split}
+    \end{equation*}
+    
+    Using the boundary definitions, the value of the constant is $\frac{1}{2}$. We arrive at the definition of the CDF and its plot:
+
+    \begin{equation*}
+        F_{X}(x) = \begin{cases}
+            0 & x < -1 \\
+            - \frac{x(x^4 - 2x^{2})}{2|x|} + \frac{1}{2} & -1 \leq x \leq 1 \\
+            1 & x > 1
+        \end{cases}
+    \end{equation*}
+    
+    \begin{center}
+        \begin{tikzpicture}[
+              declare function={
+                func(\x)= (\x < -1) * (0) +
+                          and(\x >= -1, \x <= 1) * (-((\x * (\x * \x * \x * \x - 2 * \x * \x))/(2 * abs(\x))) + 0.5) +
+                          (\x > 1) * (1)
+               ;
+              }
+            ]
+            \begin{axis}[
+              axis x line=middle, axis y line=middle,
+              ymin=-0.5, ymax=1.5, ytick={-1.5,-1.0,...,1.0,1.5}, ylabel=$y$,
+              xmin=-1.5, xmax=1.5, xtick={-1.5,-1.0,...,1.0,1.5}, xlabel=$x$,
+              domain=-1.2:1.2,samples=500, % added
+            ]
+            
+            \addplot [blue,thick] {func(x)};
+            \end{axis}
+        \end{tikzpicture} 
+    \end{center}
+
+    
     \item Use the CDF to compute \begin{equation*}
         P(X < -0.5), \quad P(X > 0.5), \quad P(-0.5 < X < 0.5)
+    \end{equation*}
+    
+    \begin{equation*}
+        \begin{split}
+            P(X < -0.5) = F(-0.5) - P(X = -0.5) = F(-0.5) = \frac{9}{32} = 0.28125
+        \end{split}
+    \end{equation*}
+    
+    \begin{equation*}
+        \begin{split}
+            P(X > 0.5) = 1 - P(X <= 0.5) = 1 - F(0.5) = 1 - \frac{23}{32} = 1 - 0.71875 = 0.28125
+        \end{split}
+    \end{equation*}
+    
+    \begin{equation*}
+        \begin{split}
+            P(-0.5 < X < 0.5) = F(0.5) - P(X = 0.5) - F(-0.5) = F(0.5) - F(-0.5) = 0.71875 - 0.28125 - 0.4375
+        \end{split}
     \end{equation*}
 \end{enumerate}
 \end{homeworkProblem}
@@ -229,10 +334,29 @@ In this first programming exercise, we would like to familiarize us with typical
 
 \begin{enumerate}[a)]
     \item Compute and print the inner product between $\mathbf{a}$ and $\mathbf{b}$.
+\begin{lstlisting}
+np.dot(a.T, b)
+\end{lstlisting}
     \item Compute and print the matrix-vector product between $M$ and $\mathbf{b}$.
+\begin{lstlisting}
+M.dot(b)
+\end{lstlisting}
     \item Compute and print the $l_{2}$ norm of $\mathbf{b}$.
+\begin{lstlisting}
+np.linalg.norm(b)
+\end{lstlisting}
     \item Compute and print the solution $\mathbf{x}$ of the linear system of equations $M \mathbf{x} = \mathbf{b}$ using the LU factorization.
+\begin{lstlisting}
+np.linalg.solve(M, b)
+\end{lstlisting}
     \item Compute and print the solution $\mathbf{x}$ of the linear system of equations $M \mathbf{x} = \mathbf{b}$ using the Cholesky factorization.
+\begin{lstlisting}
+L = np.linalg.cholesky(M)
+y = np.linalg.solve(L, b)
+x = np.linalg.solve(L.T.conj(), y)
+\end{lstlisting}
+    
+    The solutions to these exercises are in \lstinline!programming_exercises.py!.
 \end{enumerate}
 \end{programmingProblem}
 
