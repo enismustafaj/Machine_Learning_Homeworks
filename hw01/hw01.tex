@@ -47,6 +47,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.96,0.96,0.96}
 
+
 \lstdefinestyle{python}{
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
@@ -99,7 +100,7 @@
 %
 
 \newcommand{\enterProblemHeader}[1]{
-	\nobreak{}
+    \nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
@@ -186,7 +187,32 @@ The disjoint events $A$, $B$, and $C$ are defined in a sample space $\Omega$. Fi
 
 \begin{enumerate}[a)]
     \item the probability that exactly  two of $A$, $B$, $C$ occur (\textit{at the same time!})
+    
+     The probability that 2 events occur at the same time can be expressed as :
+     \begin{equation*}
+         P(A \cap B \cap \overline{C}) + P(A \cap \overline{B} \cap C) + P(\overline{A} \cap B \cap C)
+     \end{equation*}
+     \begin{equation*}
+         = P((A \cap B) \cap \overline{C}) + P((A \cap C) \cap \overline{B}) + P(\overline{A} \cap (B \cap C))
+     \end{equation*}
+     
+     Sine the events are disjoint, the probability can be expressed as:
+     \begin{equation*}
+         P(\emptyset \cap \overline{C}) + P(\emptyset \cap \overline{B}) + P(\overline{A} \cap \emptyset)
+     \end{equation*}
+     \begin{equation*}
+        =  P(\emptyset) + P(\emptyset) + P(\emptyset)
+     \end{equation*}
     \item the probability that exactly one of these events occurs
+    
+    The probability that one event occurs is: 
+    \begin{equation*}
+         P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) - P(A \cap B \cap C)
+     \end{equation*}
+     Events A, B and C are disjoint, so the probability is:
+     \begin{equation*}
+        P(A \cup B \cup C) = P(A) + P(B) + P(C)
+     \end{equation*}
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -195,9 +221,88 @@ We consider the chance experiment of four tosses of a fair coin.
 
 \begin{enumerate}[a)]
     \item Give the sample space $\Omega$ for this experiment and define a discrete random variable $X$ to describe the number of heads obained in four tosses of a fair coin.
+    
+    The sample space is:
+    \begin{equation*}
+        \begin{split}
+            \Omega = \{HHHH, TTTT, HHHT, HHTH, HTHH, THHH, HHTT, HTTH, \\ TTHH, HTHT,
+        THTH, THHT, HTTT,THTT, TTHT, TTTH\}
+        \end{split}
+    \end{equation*}
+    
+    The discrete random variable $X$ is defined as:
+    \begin{equation*}
+        \begin{split}
+            X(TTTT) = 0, X(TTTH) = 1, X(TTHT) = 1, X(THTT) = 1 \\
+            X(HTTT) = 1, X(HHTT) = 2, X(HTHT) = 2, X(THHT) = 2 \\
+            X(THTH) = 2, X(TTHH) = 2, X(HTTH) = 2, X(HHHT) = 3 \\
+            X(HHTH) = 3, X(HTHH) = 3, X(THHH) = 3, X(HHHH) = 4
+        \end{split}
+    \end{equation*}
+    
+    
     \item Find the PMF and CDF of the defined random variable and plot the CDF.
+    
+    The PMF of the random variable is: \\
+    \begin{equation*}
+        \begin{split}
+            p(X = 0) = \frac{1}{16}, p(X = 1) = \frac{4}{16}, p(X = 2) = \frac{6}{16}, p(X = 3) = \frac{4}{16}, p(X = 4) = \frac{1}{16}
+        \end{split}
+    \end{equation*}
+    
+    The CFD of the random variable is defined as following: \\
+    \begin{equation*}
+        F_{X}(x) = \begin{cases}
+            0 & -\infty < x < 0 \\
+            \frac{1}{16} & 0\leq x < 1 \\
+            \frac{5}{16} & 1\leq x < 2 \\
+            \frac{11}{16} & 2\leq x < 3 \\
+            \frac{15}{16} & 3\leq x < 4 \\
+            1 & x \geq 4
+        \end{cases}
+    \end{equation*}
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+            axis x line=bottom, axis y line=left,
+            xmin=0, xmax=5,
+            ymin=0, ymax=2,]
+            \addplot[black, domain=0:1] {1 / 16};
+            \addplot [mark=*, mark size=0.1cm,color=black!80] coordinates {(0,1 / 16)};
+            \addplot+[only marks,mark=o,mark size=0.1cm,color=black!80,text mark as node=true] coordinates {(1, 1 / 16)};
+            \addplot[black, domain=1:2] {5 / 16};
+            \addplot [mark=*, mark size=0.1cm,color=black!80] coordinates {(1,5 / 16)};
+            \addplot+[only marks,mark=o,mark size=0.1cm,color=black!80,text mark as node=true] coordinates {(2, 5 / 16)};
+            \addplot[black, domain=2:3] {11 / 16};
+            \addplot [mark=*, mark size=0.1cm,color=black!80] coordinates {(2,11 / 16)};
+            \addplot+[only marks,mark=o,mark size=0.1cm,color=black!80,text mark as node=true] coordinates {(3, 11 / 16)};
+            \addplot[black, domain=3:4] {15 / 16};
+            \addplot [mark=*, mark size=0.1cm,color=black!80] coordinates {(3,15 / 16)};
+            \addplot+[only marks,mark=o,mark size=0.1cm,color=black!80,text mark as node=true] coordinates {(4, 15 / 16)};
+            \addplot[black, domain=4:5] {1};
+            \addplot [mark=*, mark size=0.1cm,color=black!80] coordinates {(4,1)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    
+    
+    
     \item Compute the probability of the event $X$ IS BIGGER THAN $1$.
+    
+     The probability of the event $X$ IS BIGGER THAN $1$ is:
+     \begin{equation*}
+         F(1 < X \leq 4) = F(4) - F(1) = 1 - \frac{5}{16} = \frac{11}{16}
+     \end{equation*}
+     
     \item Compute the mean of the random variable.
+    
+    The mean of the random variable is: \\
+    \begin{equation*}
+        E(X) = \sum_{x \in R_{X}} x \cdot P(X = x)
+    \end{equation*}
+    \begin{equation*}
+       E(X) = 0 \cdot \frac{1}{16} + 1 \cdot \frac{4}{16} + 2 \cdot \frac{6}{16} + 3 \cdot \frac{4}{16} + 4 \cdot \frac{1}{16} = 2
+    \end{equation*}
 \end{enumerate}
 \end{homeworkProblem}
 
