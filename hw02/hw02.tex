@@ -47,6 +47,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.96,0.96,0.96}
 
+
 \lstdefinestyle{python}{
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
@@ -86,7 +87,7 @@
 \setlength\parindent{0pt}
 
 \newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
-\newcommand{\hmwkDueDate}{Month d, Year}
+\newcommand{\hmwkDueDate}{February 15, 2022}
 \newcommand{\hmwkClass}{Machine Learning}
 \newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
 \newcommand{\groupName}{\textbf{Group HB}}
@@ -99,7 +100,7 @@
 %
 
 \newcommand{\enterProblemHeader}[1]{
-	\nobreak{}
+    \nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
@@ -132,6 +133,7 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+
 \newcounter{programmingPartCounter}
 \newcounter{programmingProblemCounter}
 
@@ -160,7 +162,7 @@
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at XX:XX}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00}\\
     \vspace{3in}
 }
 
@@ -180,33 +182,43 @@
 \begin{document}
 \maketitle
 \pagebreak
-\begin{homeworkProblem}
+\begin{homeworkProblem} 
+We consider the chance experiment of a fair coin that is tossed four times.
 
-
-\begin{lstlisting}
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-def mandelbrot(h, w, maxit=20, r=2):
-    """Returns an image of the Mandelbrot fractal of size (h,w)."""
-    x = np.linspace(-2.5, 1.5, 4*h+1)
-    y = np.linspace(-1.5, 1.5, 3*w+1)
-    A, B = np.meshgrid(x, y)
-    C = A + B*1j
-    z = np.zeros_like(C)
-    divtime = maxit + np.zeros(z.shape, dtype=int)
-
-    for i in range(maxit):
-        z = z**2 + C
-        diverge = abs(z) > r                    # who is diverging
-        div_now = diverge & (divtime == maxit)  # who is diverging now
-        divtime[div_now] = i                    # note when
-        z[diverge] = r                          # avoid diverging too much
-
-    return divtime
-plt.imshow(mandelbrot(400, 400))
-\end{lstlisting}
-
+\begin{enumerate}[a)]
+    \item Give the sample space.
+    \item Define the random variable $X$ to be the number of heads, $Y$ as the number of tails and $Z$ as $Z = |X -Y|$.
+    \item Compute the joint PMF of $(X, Z)$.
+    \item Compute the expectation $E(Y)$.
+\end{enumerate}
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+We consider the chance experiment of a fair dice that is rolled two times. Let $X_{1}$ be the outcome of the first roll, while $X_{2}$ is the outcome of the second roll.
+
+\begin{enumerate}[a)]
+    \item Describe the chance experiment by its sample space, and define the random variables.
+    \item Compute the conditional expectation $E(X_{1}  X_{2} | X_{2} = x_{2})$.
+    \item Compute the conditional expectation $E(X_{1}X_{2} | X_{2} = x_{2})$.
+    \item Compute the conditional variance Var$(X_{1}^{2}X_{2} | X_{2} = x_{2})$.
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Let $(X, Y)$ be random variables describing the two coordinates of points that are uniformly distributed in a triangle that is bound $-1 \leq x \leq 1, y \geq 0$ and the two lines $y = 1 + x$ and $y = 1 - x$.
+
+\begin{enumerate}[a)]
+    \item Find $P(X \geq -0.5)$.
+    \item Find $P(Y \geq 0.5)$.
+    \item Find the marginal densities and expectations of $X$ and $Y$.
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{programmingProblem}
+\begin{enumerate}[a)]
+    \item Generate a random set of two-dimensional points and plot them as a scatter plot.
+    \item Plot the density of the 2D Gaussian distribution $\mathcal{N}(\mu, \mathbf{\Sigma})$ with $\mu = \begin{pmatrix}0 \\ 1\end{pmatrix}$ and $\mathbf{\Sigma} = \begin{pmatrix} 1 & 0.25 \\ 0.25 & 1\end{pmatrix}$.
+\end{enumerate}
+\end{programmingProblem}
+
 \end{document}
