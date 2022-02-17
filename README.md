@@ -4,7 +4,7 @@
 
 Submissions
 
-- [ ] HW01
+- [X] HW01
 - [ ] HW02
 - [ ] HW03
 - [ ] HW04
