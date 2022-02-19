@@ -187,9 +187,62 @@ We consider the chance experiment of a fair coin that is tossed four times.
 
 \begin{enumerate}[a)]
     \item Give the sample space.
+    
+    The sample space is: 
+        \begin{multline*}
+            \Omega = \{(HHHH), (HHHT), (HHTH), (HTHH), (THHH), (HHTT), (HTHT), (THHT),  \\
+            (THTH), (TTHH), (HTTH), (HTTT), (THTT), (TTHT), (TTTH), (TTTT)\}
+        \end{multline*}
+
     \item Define the random variable $X$ to be the number of heads, $Y$ as the number of tails and $Z$ as $Z = |X -Y|$.
-    \item Compute the joint PMF of $(X, Z)$.
+        Random variables X, Y, Z are defined as following:
+        \begin{align*}
+            X(TTTT) &= 0, & X(TTTH) &= 1, & X(TTHT) &= 1, & X(THTT) &= 1 \\
+            X(HTTT) &= 1, & X(HHTT) &= 2, & X(HTHT) &= 2, & X(THHT) &= 2 \\
+            X(THTH) &= 2, & X(TTHH) &= 2, & X(HTTH) &= 2, & X(HHHT) &= 3 \\
+            X(HHTH) &= 3, & X(HTHH) &= 3, & X(THHH) &= 3, & X(HHHH) &= 4
+        \end{align*}
+        \begin{align*}
+            Y(TTTT) &= 4, & Y(TTTH) &= 3, & Y(TTHT) &= 3, & Y(THTT) &= 3 \\
+            Y(HTTT) &= 3, & Y(HHTT) &= 2, & Y(HTHT) &= 2, & Y(THHT) &= 2 \\
+            Y(THTH) &= 2, & Y(TTHH) &= 2, & Y(HTTH) &= 2, & Y(HHHT) &= 1 \\
+            Y(HHTH) &= 1, & Y(HTHH) &= 1, & Y(THHH) &= 1, & Y(HHHH) &= 0
+        \end{align*}
+        \begin{align*}
+            Z(TTTT) &= 4, & Z(TTTH) &= 2, & Z(TTHT) &= 2, & Z(THTT) &= 2 \\
+            Z(HTTT) &= 2, & Z(HHTT) &= 0, & Z(HTHT) &= 0, & Z(THHT) &= 0 \\
+            Z(THTH) &= 0, & Z(TTHH) &= 0, & Z(HTTH) &= 0, & Z(HHHT) &= 2 \\
+            Z(HHTH) &= 2, & Z(HTHH) &= 2, & Z(THHH) &= 2, & Z(HHHH) &= 4
+        \end{align*}
+
+    
+    \item Compute the joint PMF of $(X, Z)$. \\
+        The PMF of variables X and Z is is defined as following: 
+            \begin{equation*}
+                p(0, 4) = p(\{(TTTT)\} \cap \{(TTTT), (HHHH)\}) = p(\{(TTTT)\}) = \frac{1}{16}
+            \end{equation*}
+            \begin{multline*}
+                p(1, 1) = p(\{(TTTH), (TTHT), (THTT), (HTTT)\} \cap \{(TTTH), (TTHT),  (THTT),\\ (HTTT), (HHHT), (HHTH), (HTHH), (THHH)\}) = p(\{(TTTH), (TTHT), (THTT), (HTTT)\}) = \frac{1}{4}
+            \end{multline*}
+    
+            \begin{multline*}
+                p(2, 0) = p(\{(HHTT), (HTHT), (THHT), (THTH), (TTHH), (HTTH)\} \cap \{(HHTT), (HTHT),  (THHT),\\ (THTH), (TTHH), (HTTH)\}) = p(\{(HHTT), (HTHT), (THHT), (THTH), (TTHH), (HTTH)\}) = \frac{3}{8}
+            \end{multline*}
+            \begin{multline*}
+                p(3, 1) = p(\{(HHHT), (HHTH), (HTHH), (THHH)\} \cap \{(TTTH), (TTHT),  (THTT),\\ (HTTT), (HHHT), (HHTH), (HTHH), (THHH)\}) = p(\{(HHHT), (HHTH), (HTHH), (THHH)\}) = \frac{1}{4}
+            \end{multline*}
+            \begin{equation*}
+                p(4, 4) = p(\{(HHHH)\} \cap \{(TTTT), (HHHH)\}) = p(\{(HHHH)\}) = \frac{1}{16}
+            \end{equation*}
+            
+        PMF for the other values of X and Z is $p(X, Z) = P( \emptyset ) = 0$
+ 
     \item Compute the expectation $E(Y)$.
+        The expectation $E(Y)$ is computed as following:
+            \begin{equation*}
+                E(Y) = \sum_{y \in R_{y}} y \cdot P(Y = y) = 0 \cdot \frac{1}{16} + 1 \cdot \frac{1}{4} + 2 \cdot \frac{5}{16} + 3 \cdot \frac{4}{16} + 4 \cdot \frac{1}{16} = \frac{30}{16} = 1.875 
+            \end{equation*}
+    
 \end{enumerate}
 \end{homeworkProblem}
 
