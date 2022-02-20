@@ -353,10 +353,115 @@ Substituting the expected values for $X_{1}^{4}$ and $X_{1}^{2}$
 \begin{homeworkProblem}
 Let $(X, Y)$ be random variables describing the two coordinates of points that are uniformly distributed in a triangle that is bound $-1 \leq x \leq 1, y \geq 0$ and the two lines $y = 1 + x$ and $y = 1 - x$.
 
+    Firstly, we find the joint probability density function PDF by the property:
+    \begin{equation*}
+        \int_{x}\int_{y}p(x, y) \cdot dy \cdot dx = 1
+    \end{equation*}
+    
+    We set the $p(x, y)$ to be a constant $c$.
+    \begin{equation*}
+        \int_{-1}^{0}\int_{0}^{1 + x}c \cdot dy \cdot dx + \int_{0}^{1}\int_{0}^{1 - x}c \cdot dy \cdot dx = 1
+    \end{equation*}
+    \begin{equation*}
+        \int_{-1}^{0}c \cdot (1 + x) \cdot dx + \int_{0}^{1}c \cdot (1 - x) \cdot dx = 1
+    \end{equation*}
+    \begin{equation*}
+        c - \frac{c}{2} + c - \frac{c}{2} = 1
+    \end{equation*}
+    \begin{equation*}
+        c = 1 => p(x, y) = 1
+    \end{equation*}
+
 \begin{enumerate}[a)]
     \item Find $P(X \geq -0.5)$.
-    \item Find $P(Y \geq 0.5)$.
+        \begin{equation*}
+            P(X \geq -0.5) = 1 - P(X < -0.5)
+        \end{equation*}
+        \begin{equation*}
+            P(X \geq -0.5) = 1 - \int_{-1}^{-0.5}\int_{0}^{1 + x}p(x, y) \cdot dy \cdot dx
+        \end{equation*}
+         \begin{equation*}
+            P(X \geq -0.5) = 1 - \int_{-1}^{-0.5}\int_{0}^{1 + x}1 \cdot dy \cdot dx
+        \end{equation*}
+        \begin{equation*}
+            P(X \geq -0.5) = 1 - \int_{-1}^{-0.5}(1 + x) \cdot dx
+        \end{equation*}
+        \begin{equation*}
+            P(X \geq -0.5) = 1 - (\frac{x ^ 2}{2} + x)\Biggr|_{-1}^{-0.5}
+        \end{equation*}
+        \begin{equation*}
+            P(X \geq -0.5) = 1 - (\frac{1}{8} - \frac{1}{2}) - (\frac{1}{2} - 1) = \frac{7}{8}
+        \end{equation*}
+        
+    \item Find $P(Y \geq 0.5)$.\\
+    For each value of $Y$, the value of $X$ goes from $y - 1$ to $1 - y$
+        \begin{equation*}
+            P(Y \geq 0.5) = \int_{0.5}^{1}\int_{y- 1}^{1 - y}p(x, y) \cdot dx \cdot dy
+        \end{equation*}
+        \begin{equation*}
+            P(Y \geq 0.5) = \int_{0.5}^{1}\int_{y- 1}^{1 - y}1 \cdot dx \cdot dy
+        \end{equation*}
+        \begin{equation*}
+            P(Y \geq 0.5) = \int_{0.5}^{1}(2 - 2 \cdot y) \cdot dy
+        \end{equation*}
+        \begin{equation*}
+            P(Y \geq 0.5) = 2 \cdot y - y^2 \Biggr|_{0.5}^{1}
+        \end{equation*}
+        \begin{equation*}
+            P(Y \geq 0.5) = (2 - 1) - (1 - \frac{1}{4}) = \frac{1}{4}
+        \end{equation*}
     \item Find the marginal densities and expectations of $X$ and $Y$.
+        \begin{equation*}
+            p_{X}(x) = \int_{Y}p(x, y) \cdot dy
+        \end{equation*}
+        Since the values of Y varies from $0$ to $1 - |x|$:
+        \begin{equation*}
+            p_{X}(x) = \int_{0}^{1-|x|}p(x, y) \cdot dy
+        \end{equation*}
+        \begin{equation*}
+            p_{X}(x) = 1-|x|
+        \end{equation*}
+        The marginal density of $Y$:
+        \begin{equation*}
+            p_{Y}(y) = \int_{X}p(x, y) \cdot dx
+        \end{equation*}
+        The values of $X$ varies from $y - 1$ to $1 - y$, so the marginal density ca be written as: \begin{equation*}
+            p_{Y}(y) = \int_{y - 1}^{1 - y}1 \cdot dx = 2 - 2 \cdot y
+        \end{equation*}
+        The expectation value of $X$:
+        \begin{equation*}
+            E[X] = \int_{X}\int_{Y}x \cdot p(x, y) dy \cdot dx
+        \end{equation*}
+        \begin{equation*}
+            E[X] = \int_{-1}^{1}\int_{0}^{1 - |x|}x dy \cdot dx
+        \end{equation*}
+        \begin{equation*}
+            E[X] = \int_{-1}^{1}x \cdot (1 - |x|) \cdot dx
+        \end{equation*}
+        Sine we have absolute value of $x$, we can split the integral into 2 intervals:
+        
+        \begin{equation*}
+            E[X] = \int_{-1}^{0}x \cdot (1 + x) \cdot dx + \int_{0}^{1}x \cdot (1 - x) \cdot dx
+        \end{equation*}
+        \begin{equation*}
+            E[X] = (\frac{x^3}{3} + \frac{x^2}{2})\Biggr|_{-1}^{0} + (-\frac{x^3}{3} + \frac{x^2}{2})\Biggr|_{0}^{1} = -(\frac{-1}{3} + \frac{1}{2}) + (\frac{-1}{3} + \frac{
+            1}{2}) = 0
+        \end{equation*}
+        
+        The expectation value of $Y$:
+        \begin{equation*}
+            E[Y] = \int_{Y}\int_{X}y \cdot p(x, y) dx\cdot dy
+        \end{equation*}
+        \begin{equation*}
+            E[Y] = \int_{0}^{1}\int_{y-1}^{1-y}y \cdot dx\cdot dy
+        \end{equation*}
+        \begin{equation*}
+            E[Y] = \int_{0}^{1}2 \cdot y - 2 \cdot y^2 \cdot dy
+        \end{equation*}
+        \begin{equation*}
+            E[Y] = (y^2 - \frac{2 \cdot y^3}{3}) \Biggr|_{0}^{1} = (1 - \frac{2}{3}) = \frac{1}{3}
+        \end{equation*}
+        
 \end{enumerate}
 \end{homeworkProblem}
 
