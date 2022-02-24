@@ -10,6 +10,9 @@
 \usepackage{subcaption}
 \usepackage{listings}
 
+\usepackage{biblatex}
+\addbibresource{bibliography.bib}
+
 \usepackage{hyperref}
 
 \usepackage{tikz}
@@ -273,41 +276,50 @@ word\_freq\_lab:          & continuous r.v  &
         \end{tabular}
     \end{table}
     
+    The keywords are all of the substrings after the \texttt{word\_freq\_} part of the features that contain \texttt{word\_freq\_} in the beginning. The characters are \texttt{;, (, [, \!, \$, \#}. The frequencies of these keywords are captured. The remaining three features, \texttt{capital\_run\_length\_average}, \texttt{capital\_run\_length\_longest}, \texttt{capital\_run\_length\_total} capture the average length of capitalized sequences, the length of the longest capitalized sequence, and the number of capitalized letters in the email respectively.
+    
     \item Search the web for alternative features that can be used to describe (SPAM) emails. Pick one example feature, cite the source, and describe these features.
     
+    Some alternative features to describe SPAM email are :
+    
     \begin{enumerate}
-        \item Some alternative features to describe SPAM email are :
-        \item From name meaningful 
-        \item From domain name 
-        \item Blocked IP 
-        \item Apostrophe in From name 
-        \item From name in Auto Whitelist (AWL) 
-        \item From address in User’s Block list 
-        \item From address in User’s White list 
-        \item Content Type 
-        \item Content Boundary exists 
-        \item To name meaningful 
-        \item To address Undisclosed recipients 
-        \item To header original 
-        \item From address and To address same 
-        \item Is subject present 
-        \item Subject content has obfuscate words 
-        \item Is forwarded message 
-        \item Is reply message 
-        \item Subject Reply without reference header 
-        \item Is message body exists 
-        \item Sensual message 
-        \item Repeated double quotes in body 
-        \item  Character set includes foreign language 
-        \item More blank lines in body 
-    \end{enumerate}    
+        \item From name - the name of the entity from which the email comes from
+        \item From domain name - the name of the domain from which the email comes from
+        \item Blocked IP - whether the email comes from a blocked IP address
+        \item Apostrophe in From name - whether there is an apostrophe in the name of the entity from which the email comes from
+        \item From address in User's Block list - whether the address from which the email comes from is in User's blocked list
+        \item From address in User's White list - whether the address from which the email comes from is in User's white list
+        \item Content Type - the type of content being transmitted by email (MIME)
+        \item Content Boundary exists - whether the Content Boundary is present in the protocol's message
+        \item From address and To address same - whether both the from address and to address of the email are the same
+        \item Is subject present - whether the email contains a subject
+        \item Subject content has obfuscate words = whether the subject of the email has obfuscated words
+        \item Is forwarded message - whether the email has been forwarded
+        \item Is reply message - whether the email is a reply to another email
+        \item Subject Reply without reference header - whether the subject doesn't refer to a previous email exchange
+        \item Sensual message - whether the email contains content considered as "sensual"
+        \item Repeated double quotes in body - the number of times the email contains double quotes in its body
+        \item Character set includes foreign language - whether the character set used in the email is part of a foreign language
+        \item More blank lines in body - whether there are more than usual blank lines in the body of the message (consequent and more than one)
+    \end{enumerate}
     
-    
+    These are a subset of the features that have been considered in the source. \cite{emailspamfiltering}
 \end{enumerate}
 \end{homeworkProblem}
 
 \begin{programmingProblem}
 Implement a code that reads a text file and extracts the 57 features discussed in the previous task. Apply the feature extractor to the provided three example emails.
+
+The feature extractor has been implemented in the file \texttt{programming\_exercises.ipynb}. The interface of the class works by simply loading the desired file using its path based off of the current working directory, and then using the \texttt{extract} method to retrieve a map containing the output features and their values.
+
+\begin{lstlisting}
+featureExtractor = FeatureExtractor()
+featureExtractor.load('file.txt')
+output_features_map = featureExtractor.extract()
+\end{lstlisting}
 \end{programmingProblem}
+
+\printbibliography
+
 
 \end{document}
