@@ -87,13 +87,13 @@
 \setlength\parindent{0pt}
 
 \newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
-\newcommand{\hmwkDueDate}{February 22, 2022}
+\newcommand{\hmwkDueDate}{March 1, 2022}
 \newcommand{\hmwkClass}{Machine Learning}
 \newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
 \newcommand{\groupName}{\textbf{Group HB}}
 
 % Homework Number Variable
-\newcommand{\hmwkNumber}{2}
+\newcommand{\hmwkNumber}{3}
 
 %
 % Create Problem Sections
@@ -192,8 +192,39 @@ which are both available in the \href{https://archive.ics.uci.edu/ml/datasets.ph
 
 \begin{enumerate}[a)]
     \item Briefly describe the data set and all involved variables in your own words. If some information is missing on the UCI Repository site, do your own search for these details.
-    \item Model the data set via input and output random variables / vectors.
+    
+        The data set of Statlog originated from NASA and concerns the position of radiators within space shuttles.
+        Input samples are 9-dimensional vectors of continuous random variables. Output  samples  are 1-dimensional vectors of discrete random variable taking values from 1 to 7. The data was divided into a training set and a test set with 43500 samples in training set and 14500 in test set. Approximately 80\% of training data belongs to class 1. There are only 6 samples that belongs to class 6.
+        
+        The data set of Computer Hardware concerns the estimation of the relative performance of CPU based on the properties of the machine. The data set has 10 attributes, 6 predictive attributes describing the specifications for the memory and CPU cycles, 2 non-predictive attributes describing the vendor and the model name. There are 2 more attributes that provide the published relative performance and an estimated relative performance. The latter is not relevant as it is an output of a model that was created to predict the published relative performance.
+    \item Model the data set via input and output random variables / vectors. 
+    
+        Data representation of Statlog data set:
+        \begin{table}[h!]
+            \centering
+            \begin{tabular}{ll}
+                \textbf{Input: } & $\mathbf{X}: \Omega \to \mathbb{R}^{9}$  \\
+                 \textbf{Output: } &  $\mathbf{Y}: \Omega \to \mathbb{N}$
+            \end{tabular}
+        \end{table}
+        
+        The set of training data is represented as tuples containing the input feature and the output $\{(x_{i}, g_{i}) \}_{i=1}^{N}$
+        
+        Data representation of Computer Hardware data set:
+        \begin{table}[h!]
+            \centering
+            \begin{tabular}{ll}
+                \textbf{Input: } & $\mathbf{X}: \Omega \to \mathbb{R}^{6}$  \\
+                 \textbf{Output: } &  $\mathbf{Y}: \Omega \to \mathbb{R}$
+            \end{tabular}
+        \end{table}
+        
+        The set of training data is represented as tuples containing the input feature and the output $\{(x_{i}, y_{i}) \}_{i=1}^{N}$
     \item Formulate a question that can be solved using machine learning on this data set and give the type of machine learning (supervised / unsupervised / regression / classification) that will allow to answer the question.
+    
+    The data set of Statlog was generated to extract rules for determining the conditions under which an auto landing would be preferable to manual control of a spacecraft. The task is to decide what type of control of the vessel should be employed. This is a supervised classification task.
+    
+    The data set of Computer Hardware can be used to predict the relative performance of the machine given the machine specifications. This is a supervised regression task.
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -202,7 +233,76 @@ The \href{https://archive.ics.uci.edu/ml/datasets/spambase}{Spambase Data Set} i
 
 \begin{enumerate}[a)]
     \item In Example 2.9, we did not mention the specific words and characters that are used in the features. Use the information of the UCI Repository to make a complete description of these variables, i.e. give all the key words, etc.
+    
+    The features of the data set are:
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{l l l l}
+word\_freq\_labs:         & continuous r.v & word\_freq\_make:         & continuous r.v  \\ 
+word\_freq\_telnet:       & continuous r.v & word\_freq\_address:      & continuous r.v  \\ 
+word\_freq\_857:          & continuous r.v & word\_freq\_all:          & continuous r.v  \\ 
+word\_freq\_data:         & continuous r.v & word\_freq\_3d:           & continuous r.v  \\ 
+word\_freq\_415:          & continuous r.v & word\_freq\_our:          & continuous r.v  \\ 
+word\_freq\_85:           & continuous r.v & word\_freq\_over:         & continuous r.v  \\ 
+word\_freq\_technology:   & continuous r.v & word\_freq\_remove:       & continuous r.v  \\ 
+word\_freq\_1999:         & continuous r.v & word\_freq\_internet:     & continuous r.v  \\ 
+word\_freq\_parts:        & continuous r.v & word\_freq\_order:        & continuous r.v  \\ 
+word\_freq\_pm:           & continuous r.v & word\_freq\_mail:         & continuous r.v  \\ 
+word\_freq\_direct:       & continuous r.v & word\_freq\_receive:      & continuous r.v  \\ 
+word\_freq\_cs:           & continuous r.v & word\_freq\_will:         & continuous r.v  \\ 
+word\_freq\_meeting:      & continuous r.v & word\_freq\_people:       & continuous r.v  \\ 
+word\_freq\_original:     & continuous r.v & word\_freq\_report:       & continuous r.v  \\ 
+word\_freq\_project:      & continuous r.v & word\_freq\_addresses:    & continuous r.v  \\ 
+word\_freq\_re:           & continuous r.v & word\_freq\_free:         & continuous r.v  \\ 
+word\_freq\_edu:          & continuous r.v & word\_freq\_business:     & continuous r.v  \\ 
+word\_freq\_table:        & continuous r.v & word\_freq\_email:        & continuous r.v  \\ 
+word\_freq\_conference:   & continuous r.v & word\_freq\_you:          & continuous r.v  \\ 
+char\_freq\_;:            & continuous r.v & word\_freq\_credit:       & continuous r.v  \\ 
+char\_freq\_(:            & continuous r.v & word\_freq\_your:         & continuous r.v  \\ 
+char\_freq\_[:            & continuous r.v & word\_freq\_font:         & continuous r.v  \\ 
+char\_freq\_!:            & continuous r.v & word\_freq\_000:          & continuous r.v  \\ 
+char\_freq\_\$:            & continuous r.v & word\_freq\_money:        & continuous r.v  \\ 
+char\_freq\_\#:            & continuous r.v & word\_freq\_hp:           & continuous r.v  \\ 
+capital\_run\_length\_average: & continuous r.v & word\_freq\_hpl:          & continuous r.v  \\ 
+capital\_run\_length\_longest: & continuous r.v & word\_freq\_george:       & continuous r.v  \\ 
+capital\_run\_length\_total:   & continuous r.v & word\_freq\_650:          & continuous r.v  \\ 
+word\_freq\_lab:          & continuous r.v  &
+
+
+        \end{tabular}
+    \end{table}
+    
     \item Search the web for alternative features that can be used to describe (SPAM) emails. Pick one example feature, cite the source, and describe these features.
+    
+    \begin{enumerate}
+        \item Some alternative features to describe SPAM email are :
+        \item From name meaningful 
+        \item From domain name 
+        \item Blocked IP 
+        \item Apostrophe in From name 
+        \item From name in Auto Whitelist (AWL) 
+        \item From address in User’s Block list 
+        \item From address in User’s White list 
+        \item Content Type 
+        \item Content Boundary exists 
+        \item To name meaningful 
+        \item To address Undisclosed recipients 
+        \item To header original 
+        \item From address and To address same 
+        \item Is subject present 
+        \item Subject content has obfuscate words 
+        \item Is forwarded message 
+        \item Is reply message 
+        \item Subject Reply without reference header 
+        \item Is message body exists 
+        \item Sensual message 
+        \item Repeated double quotes in body 
+        \item  Character set includes foreign language 
+        \item More blank lines in body 
+    \end{enumerate}    
+    
+    
 \end{enumerate}
 \end{homeworkProblem}
 
