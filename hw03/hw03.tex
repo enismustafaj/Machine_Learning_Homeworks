@@ -314,8 +314,12 @@ The feature extractor has been implemented in the file \texttt{programming\_exer
 
 \begin{lstlisting}
 featureExtractor = FeatureExtractor()
-featureExtractor.load('file.txt')
-output_features_map = featureExtractor.extract()
+emails = os.listdir("./emails")
+
+# load the email files from "emails" directory
+for email in emails:
+    featureExtractor.load("./emails/" + email)
+    output_features_map = featureExtractor.extract()
 \end{lstlisting}
 \end{programmingProblem}
 
