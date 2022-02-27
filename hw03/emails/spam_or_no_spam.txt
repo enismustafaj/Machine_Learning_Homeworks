@@ -1,0 +1,47 @@
+
+Subject:
+CO-541-A_s2021: [ML] First homework assignment & tutorial
+From:
+"Peter Zaspel (via jMoodle)" <noreply@jacobs-university.de>
+Date:
+10.02.21, 09:20
+To:
+"Peter Zaspel" <p.zaspel@jacobs-university.de>
+
+
+CO-541-A_s2021 -> Forums -> Announcements -> [ML] First homework assignment &
+tutorial 
+https://moodle.jacobs-university.de/mod/forum/discuss.php?d=1069#p1436
+[ML] First homework assignment & tutorial
+by Peter Zaspel - Wednesday, 10 February 2021, 9:19 AM
+---------------------------------------------------------------------
+ Dear ML students,
+
+with a small delay, I just published the first homework assignment for this
+course on Moodle. In the future, it will be available online on Tuesdays.
+
+Please have a look at the (updated!) details on the homework assignments on
+the Moodle page. The submission process and deadline is described there,
+too.
+
+You are invited to post questions on the procedure via the questions forum.
+
+Moreover, please take note of the Tutorial time slot that has been selected
+(Wednesdays, 19:15). Those, who cannot join that slot still will have
+access to the reference solutions and can join the bookable slots with me.
+
+Best regards,
+
+Peter Zaspel
+
+
+
+
+---------------------------------------------------------------------
+This is a copy of a message posted in CO-541-A_s2021.
+
+To reply click on this link:
+https://moodle.jacobs-university.de/mod/forum/post.php?reply=1436
+Change your forum digest preferences:
+https://moodle.jacobs-university.de/mod/forum/index.php?id=3390
+
