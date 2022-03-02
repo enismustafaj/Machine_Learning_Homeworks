@@ -5,8 +5,8 @@
 Submissions
 
 - [X] HW01
-- [ ] HW02
-- [ ] HW03
+- [X] HW02
+- [X] HW03
 - [ ] HW04
 - [ ] HW05
 - [ ] HW06
