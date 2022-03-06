@@ -59,14 +59,14 @@
     breaklines=true,
     captionpos=b,
     keepspaces=true,
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
- 
+
 \lstset{style=python}
 \lstset{language=Python}
 
@@ -201,7 +201,7 @@ is a good approximation to $Y = g(X)$.
     \begin{equation*}
         EPE(f) = E[L_{2}(y, f(x)] = \int_{R} \int_{R} ((y - f(x))^{2} p(x, y) \: dx dy
     \end{equation*}
-    
+
     Based on Knowledge 3.1, it is possible to substitute the joint density with the product of the marginal density of $X$ and a Dirac Delta function, and then use the Dirac Delta function to integrate with regards to $y$.
     \begin{equation*}
         \begin{split}
@@ -211,7 +211,7 @@ is a good approximation to $Y = g(X)$.
             & = \int_{R} p_{X}(x) (x^{4} - x^{3})^{2} \: dx \\
         \end{split}
     \end{equation*}
-    
+
     Since we know that $X$ is uniformly distributed in the range $[-1, 1]$, the marginal density will be equal to 0.5 in that interval and 0 everywhere else.
     \begin{equation*}
         \begin{split}
@@ -224,16 +224,16 @@ is a good approximation to $Y = g(X)$.
             & \approx 0.254
         \end{split}
     \end{equation*}
-    
+
     The error is large compared to the lecture example due to the extended range $[-1, 1]$ and due to the difference between an odd ($x^{3}$) and even function ($x^{4}$) on the negative domain.
-    
+
     \item Find the regressor for $Y = g(X)$.
-    
+
     Using Knowledge 3.1, we can retrieve the dependency of $Y$ on $X$ by using the conditional density of $Y$ given $X$.
     \begin{equation*}
         p(y | x) = \frac{p(x, y)}{p_{X}(x)} = \frac{\delta(y - x^{4}) p_{X}(x)}{p_{X}(x)} = \delta(y - x^{4})
     \end{equation*}
-    
+
     Evaluating the regressor using the Dirac Delta function to integrate with regards to $y$:
     \begin{equation*}
         \begin{split}
@@ -276,14 +276,14 @@ By expanding the statement inside the first expected value we get:
 \begin{equation*}
     E_{X} E_{Y | X} [E[Y|X] \cdot f(x) - Y \cdot f(x) - E[Y|X]^{2} + Y \cdot E[Y|X]| X] = 0
 \end{equation*}
-In order for the equation to be 0, the term: 
+In order for the equation to be 0, the term:
 \begin{equation*}
     E_{Y | X} [E[Y|X] \cdot f(x) - Y \cdot f(x) - E[Y|X]^{2} + Y \cdot E[Y|X]| X]
 \end{equation*}
 needs to be $0$.
 Now we expand the expected value with regard to the terms inside:
 \begin{equation*}
-    E[[E[Y|X] \cdot f(x) | X] - E[Y \cdot f(x) | X] - E[E[Y|X]^{2} | X] + E[Y \cdot E[Y|X]| X] = 0
+    E[E[Y|X] \cdot f(x) | X] - E[Y \cdot f(x) | X] - E[E[Y|X]^{2} | X] + E[Y \cdot E[Y|X]| X] = 0
 \end{equation*}
 By using the property of the expected value that if 2 events $A$ and $B$ are independent of each other, then:
 \begin{equation*}
@@ -291,7 +291,7 @@ By using the property of the expected value that if 2 events $A$ and $B$ are ind
 \end{equation*}
 we get:
 \begin{equation*}
-    E[[E[Y|X] | X] \cdot E[f(x) | X] - E[Y | X] \cdot E[f(x) | X] - E[E[Y|X] | X] \cdot E[E[Y|X] | X] + E[Y | X] \cdot E[E[Y|X] | X] = 0
+    E[E[Y|X] | X] \cdot E[f(x) | X] - E[Y | X] \cdot E[f(x) | X] - E[E[Y|X] | X] \cdot E[E[Y|X] | X] + E[Y | X] \cdot E[E[Y|X] | X] = 0
 \end{equation*}
 By simplifying:
 \begin{equation*}
@@ -313,7 +313,7 @@ You are given the following training data:
 }
 \end{equation*}
 
-Manually carry a kNN regression prediction for $\mathbf{x}_{1} = (3, 3)^{\top}$, $\mathbf{x}_{2} = (3, 6)^{\top}$, $\mathbf{x}_{3} = (5, 3)^{\top}$, and $k = 1, k = 3, k = 6$. As part of the task, you have to draw the points in a scatter plot (on paper) and mark the respective neighborhoods that contribute to the final result. 
+Manually carry a kNN regression prediction for $\mathbf{x}_{1} = (3, 3)^{\top}$, $\mathbf{x}_{2} = (3, 6)^{\top}$, $\mathbf{x}_{3} = (5, 3)^{\top}$, and $k = 1, k = 3, k = 6$. As part of the task, you have to draw the points in a scatter plot (on paper) and mark the respective neighborhoods that contribute to the final result.
 
 \begin{figure}[h]
     \centering
