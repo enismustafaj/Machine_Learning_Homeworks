@@ -289,6 +289,8 @@ Consider the Examples 3.4 and 3.5 from the lecture, for which you also have acce
     \item (Re-)implement Example 3.5. This time, however you need to implement the kNN classification by yourself, without a machine learning library and without a kNN search library. (If you implement in Python, just start from the available Jupyter notebook) Verify the correctness of your implementation by cross-checking it with Example 3.5.
     \item Now, we would like to use kNN classification for SPAM classification. Either you collect some e-mails (both SPAM and no SPAM) from your Inbox, label them manually and create the representation using your implementation from last week or you use the Spambase Data Set from the UCI Machine Learning Repository. Apply your implementation to one of these data sets and evaluate the predictor for three random samples in the data set and values $k = 1$, $k = 3$, $k = 10$. Compare these results to the training data.
 \end{enumerate}
+
+The implementation of the kNN regressor and classifier can be found in the file \texttt{programming\_exercises.ipynb}. Both have been implemented as classes that can be instantiated given the \texttt{n\_neighbors} argument which is the number of neighbors used when searching for the neighbors of data point. The classes offer two methods, \texttt{fit} and \texttt{predict}, which add the data to the model and predict the expected regression value or class respectively.
 \end{programmingProblem}
 
 \end{document}
