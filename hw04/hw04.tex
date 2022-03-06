@@ -224,6 +224,42 @@ where the second term can be dropped. Now, prove that this is possible, i.e. tha
     2 E_{X} E_{Y | X} [(f(X) - E[Y | X])(E[Y | X] - Y) | X] = 0
 \end{equation*}
 
+From the above statement we can derive that:
+\begin{equation*}
+    E_{X} E_{Y | X} [(f(X) - E[Y | X])(E[Y | X] - Y) | X] = 0
+\end{equation*}
+By expanding the statement inside the first expected value we get:
+\begin{equation*}
+    E_{X} E_{Y | X} [E[Y|X] \cdot f(x) - Y \cdot f(x) - E[Y|X]^{2} + Y \cdot E[Y|X]| X] = 0
+\end{equation*}
+In order for the equation to be 0, the term: 
+\begin{equation*}
+    E_{Y | X} [E[Y|X] \cdot f(x) - Y \cdot f(x) - E[Y|X]^{2} + Y \cdot E[Y|X]| X]
+\end{equation*}
+needs to be $0$.
+Now we expand the expected value with regard to the terms inside:
+\begin{equation*}
+    E[[E[Y|X] \cdot f(x) | X] - E[Y \cdot f(x) | X] - E[E[Y|X]^{2} | X] + E[Y \cdot E[Y|X]| X] = 0
+\end{equation*}
+By using the property of the expected value that if 2 events $A$ and $B$ are independent of each other, then:
+\begin{equation*}
+    E[A \cdot B] = E[A] \cdot E[B]
+\end{equation*}
+we get:
+\begin{equation*}
+    E[[E[Y|X] | X] \cdot E[f(x) | X] - E[Y | X] \cdot E[f(x) | X] - E[E[Y|X] | X] \cdot E[E[Y|X] | X] + E[Y | X] \cdot E[E[Y|X] | X] = 0
+\end{equation*}
+By simplifying:
+\begin{equation*}
+    E[E[Y|X]|X] = E[Y|X]
+\end{equation*}
+we get:
+\begin{equation*}
+    E[Y|X] \cdot E[f(x) | X] - E[Y | X] \cdot E[f(x) | X] - E[Y|X] \cdot E[Y|X] + E[Y | X] \cdot E[Y|X] = 0
+\end{equation*}
+
+From the equation we can see that the terms cancel each other and the result will be $0$.
+
 \end{homeworkProblem}
 \begin{homeworkProblem}
 You are given the following training data:
@@ -234,6 +270,34 @@ You are given the following training data:
 \end{equation*}
 
 Manually carry a kNN regression prediction for $\mathbf{x}_{1} = (3, 3)^{\top}$, $\mathbf{x}_{2} = (3, 6)^{\top}$, $\mathbf{x}_{3} = (5, 3)^{\top}$, and $k = 1, k = 3, k = 6$. As part of the task, you have to draw the points in a scatter plot (on paper) and mark the respective neighborhoods that contribute to the final result. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images.jpeg}
+\end{figure}
+
+\begin{itemize}[]
+    \item k = 1
+        \begin{itemize}
+            \item The nearest neighbour of the point $x_{1} = (3, 3)^{T}$ is the point $(3, 3)^{T}$ itself so the result of KNN regression will be $32$
+            \item The nearest neighbour of the point $x_{2} = (3, 6)^{T}$ is the point $(2, 6)^{T}$. The result of KNN regression will be $32$
+            \item The nearest neighbour of the point $x_{3} = (5, 3)^{T}$ is the point $(5, 4)^{T}$. The result of KNN regression will be $18$
+        \end{itemize}
+    \item k = 3
+        \begin{itemize}
+            \item The 3 nearest neighbours of the point $x_{1} = (3, 3)^{T}$ are the points $(3, 3)^{T}, (3, 2)^{T}, (4, 2)^{T}$. The the result of KNN regression will be $\frac{32 + 25 + 14}{3} = 23.67$
+            \item The 3 nearest neighbours of the point $x_{2} = (3, 6)^{T}$ are the points $(2, 5)^{T}, (2, 6)^{T}, (5, 6)^{T}$. The the result of KNN regression will be $\frac{32 + 21 + 12}{3} = 21.67$
+            \item The 3 nearest neighbours of the point $x_{3} = (5, 3)^{T}$ are the points $(5, 6)^{T}, (4, 2)^{T}, (3, 3)^{T}$. The the result of KNN regression will be $\frac{32 + 18 + 14}{3} = 21.33$
+        \end{itemize}
+    \item k = 6
+        \begin{itemize}
+            \item The 6 nearest neighbour of the point $x_{1} = (3, 3)^{T}$ are the points $(3, 3)^{T}, (3, 2)^{T}, (4, 2)^{T}, (3, 1)^{T}, (5, 4)^{T}, (2, 5)^{T}$ itself so the result of KNN regression will be $\frac{32 + 25 + 1 + 18 + 14 + 21}{6} = 18.5$
+            \item The 6 nearest neighbour of the point $x_{2} = (3, 6)^{T}$ are the points $(3, 3)^{T}, (2, 6)^{T}, (2, 5)^{T}, (5, 6)^{T}, (1, 7)^{T}, (5, 4)^{T}$ itself so the result of KNN regression will be $\frac{32 + 18 + 12 + 32 + 21 + 15}{6} = 21.67$
+            \item The 6 nearest neighbour of the point $x_{1} = (5, 3)^{T}$ are the points $(3, 3)^{T}, (3, 2)^{T}, (3, 1)^{T}, (4, 2)^{T}, (5, 4)^{T}, (5, 6)^{T}$ itself so the result of KNN regression will be $\frac{32 + 25 + 1 + 14 + 18 + 12}{6} = 17$
+        \end{itemize}
+\end{itemize}
+
+
 \end{homeworkProblem}
 
 \begin{programmingProblem}
