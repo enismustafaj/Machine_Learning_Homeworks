@@ -198,7 +198,51 @@ is a good approximation to $Y = g(X)$.
 
 \begin{enumerate}[a)]
     \item Calculate the expected (squared) prediction error for $f$. Why is the error that large compared to the lecture example?
+    \begin{equation*}
+        EPE(f) = E[L_{2}(y, f(x)] = \int_{R} \int_{R} ((y - f(x))^{2} p(x, y) \: dx dy
+    \end{equation*}
+    
+    Based on Knowledge 3.1, it is possible to substitute the joint density with the product of the marginal density of $X$ and a Dirac Delta function, and then use the Dirac Delta function to integrate with regards to $y$.
+    \begin{equation*}
+        \begin{split}
+            EPE(f) & = \int_{R} \int_{R} (y - x^{3})^{2} p_{X}(x) \delta(y - x^{4}) \: dx dy \\
+            & = \int_{R} \int_{R} (y - x^{3})^{2} p_{X}(x) \delta(y - x^{4}) \: dy dx \\
+            & = \int_{R} p_{X}(x) \int_{R} (y - x^{3})^{2} \delta(y - x^{4}) \: dy dx \\
+            & = \int_{R} p_{X}(x) (x^{4} - x^{3})^{2} \: dx \\
+        \end{split}
+    \end{equation*}
+    
+    Since we know that $X$ is uniformly distributed in the range $[-1, 1]$, the marginal density will be equal to 0.5 in that interval and 0 everywhere else.
+    \begin{equation*}
+        \begin{split}
+            EPE(f) & = \frac{1}{2} \int_{-1}^{1} (x^{4} - x^{3})^{2} \: dx \\
+            & = \frac{1}{2} \int_{-1}^{1} (x^{8} - 2 x^{7} + x^{6}) \: dx \\
+            & = \frac{1}{2} \left[ \frac{x^{9}}{9} - \frac{x^{8}}{4} + \frac{x^{7}}{7} \right]_{-1}^{1} \\
+            & = \frac{1}{2} \left[ \left (\frac{1}{9} - \frac{1}{4} + \frac{1}{7}\right) - \left(-\frac{1}{9} - \frac{1}{4} - \frac{1}{7}\right) \right] \\
+            & = \frac{1}{2} \left(\frac{2}{9} + \frac{2}{7}\right) \\
+            & = \frac{16}{63} \\
+            & \approx 0.254
+        \end{split}
+    \end{equation*}
+    
+    The error is large compared to the lecture example due to the extended range $[-1, 1]$ and due to the difference between an odd ($x^{3}$) and even function ($x^{4}$) on the negative domain.
+    
     \item Find the regressor for $Y = g(X)$.
+    
+    Using Knowledge 3.1, we can retrieve the dependency of $Y$ on $X$ by using the conditional density of $Y$ given $X$.
+    \begin{equation*}
+        p(y | x) = \frac{p(x, y)}{p_{X}(x)} = \frac{\delta(y - x^{4}) p_{X}(x)}{p_{X}(x)} = \delta(y - x^{4})
+    \end{equation*}
+    
+    Evaluating the regressor using the Dirac Delta function to integrate with regards to $y$:
+    \begin{equation*}
+        \begin{split}
+            E[Y | X] & = \int_{R} y p(y | x) \: dy \\
+            & = \int_{R} y  \delta(y - x^{4}) \: dy \\
+            & = y \\
+            & = x^4
+        \end{split}
+    \end{equation*}
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -309,6 +353,8 @@ Consider the Examples 3.4 and 3.5 from the lecture, for which you also have acce
     \item (Re-)implement Example 3.5. This time, however you need to implement the kNN classification by yourself, without a machine learning library and without a kNN search library. (If you implement in Python, just start from the available Jupyter notebook) Verify the correctness of your implementation by cross-checking it with Example 3.5.
     \item Now, we would like to use kNN classification for SPAM classification. Either you collect some e-mails (both SPAM and no SPAM) from your Inbox, label them manually and create the representation using your implementation from last week or you use the Spambase Data Set from the UCI Machine Learning Repository. Apply your implementation to one of these data sets and evaluate the predictor for three random samples in the data set and values $k = 1$, $k = 3$, $k = 10$. Compare these results to the training data.
 \end{enumerate}
+
+The implementation of the kNN regressor and classifier can be found in the file \texttt{programming\_exercises.ipynb}. Both have been implemented as classes that can be instantiated given the \texttt{n\_neighbors} argument which is the number of neighbors used when searching for the neighbors of data point. The classes offer two methods, \texttt{fit} and \texttt{predict}, which add the data to the model and predict the expected regression value or class respectively.
 \end{programmingProblem}
 
 \end{document}
