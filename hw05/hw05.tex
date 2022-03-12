@@ -178,6 +178,8 @@
 \newcommand{\solution}{\textbf{\large Solution}}
 \newcommand{\comment}[1]{} % Multi-line comment
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
 \maketitle
@@ -338,7 +340,28 @@ You are given the training data $\mathcal{T} = \left \{ ((1, 1)^{\top}, 2), ((1,
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-Prove Theorem 3.2 from the lecture. If you consider this as too hard, consult the literature from this field to solve the problem. In case you use external literature, make sure that you give a citation for that literature (i.e. say where you took it from) and rephrase the proof appropriately.
+Prove Theorem 3.2 from the lecture. If you consider this as too hard, consult the literature from this field to solve the problem. In case you use external literature, make sure that you give a citation for that literature (i.e. say where you took it from) and rephrase the proof appropriately.\\
+
+Assuming the input, output and mixed joint density from Theorem 3.2. To find the function $f : R^{D} \to R_{G}$ that minimizes the expected prediction error EPE($f$) with respect to the 0 - 1 loss, the following steps can be taken:
+\begin{equation*}
+    \begin{split}
+        \argmin_{g \in R_{G}} \text{EPE}(f(\textbf{x})) & = \argmin_{g \in R_{G}} E[L(g, f(\textbf{x})) | \textbf{X} = \textbf{x}] \\
+        & = \argmin_{g \in R_{G}} P(g = g_{1} | \textbf{X} = \textbf{x}) \cdot L(g_{1}, f(\textbf{x})) + \ldots + P(g = g_{r} | \textbf{X} = \textbf{x}) \cdot L(g_{r}, f(\textbf{x})) \\
+        & = \argmin_{g \in R_{G}} \sum_{i = 1}^{r} P(g = g_{i} | \textbf{X} = \textbf{x}) \cdot L(g_{i}, f(\textbf{x})
+    \end{split}
+\end{equation*}
+
+Due to the loss function having a range of 0 and 1, the last result can be simplified to a sum of the probabilities for which the predicted class, $f(x)$, does not equal the true class, $g$.
+\begin{equation*}
+    \begin{split}
+        \argmin_{g \in R_{G}} \text{EPE}(f(\textbf{x})) & = \argmin_{g \in R_{G}} P(g \neq f(\textbf{x}) | \textbf{X} = \textbf{x}) \\
+        & = \argmin_{g \in R_{G}} 1 - P(g = f(\textbf{x}) | \textbf{X} = \textbf{x}) \\
+        & = \argmax_{g \in R_{G}} P(g = f(\textbf{x}) | \textbf{X} = \textbf{x})
+    \end{split}
+\end{equation*}
+
+If $\mathfrak{g}$ is the true output class, such that $p(\mathfrak{g} | \textbf{x}) = \max_{g \in R_{G}} p(g | \textbf{x})$, then the minimized $f(\textbf{x})$ found above matches the definition of the Bayes classifier.
+
 \end{homeworkProblem}
 
 \begin{programmingProblem}
@@ -348,6 +371,8 @@ Consider the Examples 4.2 and 4.3 from the lecture, for which you also have acce
     \item Apply your implementation to the Energy efficiency Data Set from the UCI Machine Learning Repository. Build the predictor for the required heating load on the full data set and predict the load on the first three samples of the data set.
     \item Implement Example 4.5 starting from Example 4.2 from the lecture notes.
 \end{enumerate}
+
+The implementation of the linear regressor by least squares can be found in the file \texttt{programming\_exercises.ipynb}. The class offers two methods, \texttt{fit} and \texttt{predict}, which add the data and train the model, and predict the expected regression value.
 \end{programmingProblem}
 
 \end{document}
