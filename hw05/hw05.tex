@@ -190,11 +190,65 @@ In this problem, you will need to remind yourself about the definition of a posi
     \begin{equation*}
         M = \begin{bmatrix} 1 & 2 \\ 2 & 1 \end{bmatrix}, \quad N = \begin{bmatrix} 2 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 2 \end{bmatrix}
     \end{equation*}
+    
+    To compute if a matrix is positive definite, we compute the eigenvalues of the matrix and see if they are positive.
+    \begin{enumerate}[a)]
+        \item Eigenvalues of the first matrix
+            \begin{equation*}
+                M - \lambda \cdot I = \begin{bmatrix} 1 - \lambda & 2 \\ 2 & 1 - \lambda \end{bmatrix}
+            \end{equation*}
+            
+            To calculate the eigenvalues we find the roots of the determinant.
+            \begin{equation*}
+                \Delta = (1 - \lambda)^{2} - 4 = 0
+            \end{equation*}
+            From the equation above we find that the eigenvalues are $-1$ and $-3$, so the matrix is not positive definite.
+            
+        \item Eigenvalues of the second matrix
+            For the second matrix we repeat the steps from above.
+                \begin{equation*}
+                    N - \lambda \cdot I = \begin{bmatrix} 2 - \lambda & -1 & 0 \\ -1 & 2 - \lambda & -1 \\ 0 & -1 & 2 - \lambda \end{bmatrix}
+                \end{equation*}
+                \begin{equation*}
+                  \Delta = (2 - \lambda) \cdot [(2 - \lambda)^{2} - 1] - (\lambda - 2) = 0
+                \end{equation*}
+                \begin{equation*}
+                  \Delta = (2 - \lambda) \cdot [(2 - \lambda)^{2} - 2] = 0
+                \end{equation*}
+                
+                From the equation above, the eigenvalues are $2$, $2 - \sqrt{2}$, $2 + \sqrt{2}$. The eigenvalues are positive, so the matrix is positive definite.
+        
+         
+    \end{enumerate}
     \item You are given the following function:
     \begin{equation*}
         f(x, y) = 3 x^{2} y + y^{3} - 3 x^{2} - 3 y^{2} + 2 
     \end{equation*}
     Use the Knowledge 4.1 statement from the lecture notes to find and classify all locations of minima and maxima of this function.
+    
+    The gradient of the function $f(x, y)$ is
+    
+    \begin{equation*}
+        \nabla f = \begin{pmatrix} \dfrac{\partial f(x, y)}{\partial x} \\[1em] \dfrac{\partial f(x, y)}{\partial y} \end{pmatrix} = \begin{pmatrix} 6xy - 6x \\[1em] 3x^{2} + 3y^{2} - 6y \end{pmatrix}
+    \end{equation*}
+    
+    The points for which the gradient is equal to $\Vec{0}$ are $\{(1, 1), (-1, 1), (0, 2), (0, 0)\}$. The Hessian matrix of the function $f$ is
+    
+    \begin{equation*}
+        \mathcal{H}_{f(x, y)} = \begin{pmatrix} \dfrac{\partial^{2} f(x, y)}{\partial x^{2}} &  \dfrac{\partial^{2} f(x, y)}{\partial x \cdot \partial y} \\[1em] \dfrac{\partial^{2} f(x, y)}{\partial y \cdot \partial x} &  \dfrac{\partial^{2} f(x, y)}{\partial y^{2}} \end{pmatrix} = \begin{pmatrix} 6y - 6 & 6x \\[1em] 6x & 6y - 6 \end{pmatrix}
+    \end{equation*}
+    
+    \begin{itemize}
+        \item For point $(1, 1)$ we get the matrix : $\begin{pmatrix} 0 & 6 \\ 6 & 0\end{pmatrix}$ with eigenvalues $6$ and $-6$. The matrix is not positive or negative definite, so the point is neither local minimum or maximum.
+        
+        \item For point $(-1, 1)$ we get the matrix : $\begin{pmatrix} 0 & -6 \\ -6 & 0\end{pmatrix}$ with eigenvalues $6$ and $-6$. The matrix is not positive or negative definite, so the point is neither local minimum or maximum.
+        
+        \item For point $(0, 2)$ we get the matrix : $\begin{pmatrix} 6 & 0 \\ 0 & 6\end{pmatrix}$ with eigenvalues $6$ and $6$. The matrix is positive definite, so the point is local minimum.
+        
+        \item For point $(0, 0)$ we get the matrix : $\begin{pmatrix} -6 & 0 \\ 0 & -6\end{pmatrix}$ with eigenvalues $-6$ and $-6$. The matrix is negative definite, so the point is local maximum.
+    \end{itemize}
+
+    
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -202,8 +256,85 @@ In this problem, you will need to remind yourself about the definition of a posi
 You are given the training data $\mathcal{T} = \left \{ ((1, 1)^{\top}, 2), ((1, 2)^{\top}, 3), ((2, 2)^{\top}, 3), ((2, 4)^{\top}, 4) \right \}$.
 \begin{enumerate}[a)]
     \item Use linear regression by least squares to compute a predictor for the output. Do this by hand, i.e., don't use the computer and show all computation steps.
+    
+    We create the matrix $X$ by adding the $1$ before each training data point:
+    \begin{equation*}
+        X = \begin{bmatrix}1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 2 & 4 \end{bmatrix} \quad
+        X^{T} = \begin{bmatrix}1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 2 \\ 1 & 2 & 2 & 4  \end{bmatrix}
+        \quad
+        y = \begin{pmatrix}2 \\ 3 \\ 3 \\ 4  \end{pmatrix}
+    \end{equation*}
+    
+    We compute the matrix $A$ by:
+    \begin{equation*}
+        A = X^{T} \cdot X = \begin{bmatrix}1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 2 \\ 1 & 2 & 2 & 4  \end{bmatrix} \cdot \begin{bmatrix}1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 2 & 4 \end{bmatrix} = \begin{bmatrix} 4 & 6 & 9 \\ 6 & 10 & 15 \\ 9 & 15 & 25 \end{bmatrix}
+    \end{equation*}
+    
+    We compute the vector $b$ by:
+    \begin{equation*}
+        b = X^{T} \cdot y = \begin{bmatrix}1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 2 \\ 1 & 2 & 2 & 4  \end{bmatrix} \cdot \begin{pmatrix}2 \\ 3 \\ 3 \\ 4  \end{pmatrix} = \begin{pmatrix}12 \\ 19 \\ 30 \end{pmatrix}
+    \end{equation*}
+    
+    Now, we need to solve the equation $A \cdot \beta = b$. We use Cholesky decomposition for express the matrix $A$ in the form $L \cdot L^{T}$, where $L$ is a matrix of the form:
+    \begin{equation*}
+        L = \begin{bmatrix}a & 0 & 0  \\ b & c & 0 \\ d & e & f  \end{bmatrix}
+    \end{equation*}
+    
+    To compute the entries of the matrix $L$, we use the following formulas:
+    \begin{equation*}
+        l_{kk} = \sqrt{a_{kk} - \sum_{j = 1}^{k - 1}l_{kj}^2} \quad l_{ki} = \frac{a_{ki} - \sum_{j = 1}^{i - 1} l_{ij} \cdot l_{kj}}{l_{ii}}
+    \end{equation*}
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{c c c}
+            $l_{11} = \sqrt{a_{11}} = 2 & l_{21} = \frac{a_{21}}{l_{11}} = 3 & l_{22} = \sqrt{a_{22} - l_{21}^{2}} = 1 \\[1em] l_{31} = \frac{a_{31}}{l_{11}} = \frac{9}{2}& l_{32} = \frac{a_{32} - l_{21} \cdot l_{31}}{l_{22}} = \frac{3}{2} & l_{33} = \sqrt{a_{33} - l_{31}^{2} - l_{32}^{2}} = \frac{\sqrt{10}}{2}$
+        \end{tabular}
+    \end{table}
+    
+    The matrix $L$ is:
+    \begin{equation*}
+        L = \begin{bmatrix}2 & 0 & 0  \\ 3 & 1 & 0 \\ \frac{9}{2} & \frac{3}{2} & \frac{\sqrt{10}}{2}  \end{bmatrix}
+    \end{equation*}
+    
+    The equation now becomes $L \cdot L^{T} \cdot \Vec{\beta} = \Vec{b}$. We express $L^{T} \cdot \Vec{\beta} = \Vec{x}$. The final equation becomes:
+    \begin{equation*}
+        L \cdot \Vec{x} = \Vec{b} \quad \begin{bmatrix}2 & 0 & 0  \\ 3 & 1 & 0 \\ \frac{9}{2} & \frac{3}{2} & \frac{\sqrt{10}}{2}  \end{bmatrix} \cdot \begin{pmatrix} x_{1} \\ x_{2} \\ x_{3} \end{pmatrix} = \begin{pmatrix} 12 \\ 19 \\ 30 \end{pmatrix}
+    \end{equation*}
+    From the above equation we get:
+    \begin{equation*}
+        \Vec{x} = \begin{pmatrix} 6 \\ 1 \\ \frac{3 \cdot \sqrt{10}}{10} \end{pmatrix}
+    \end{equation*}
+    The last equation is:
+    \begin{equation*}
+        L^{T} \cdot \Vec{\beta} = \Vec{x}
+    \end{equation*}
+    \begin{equation*}
+        \begin{bmatrix}
+            2 & 3 & \frac{9}{2} \\
+            0 & 1 & \frac{3}{2} \\
+            0 & 0 & \frac{\sqrt{10}}{2}
+        \end{bmatrix} \cdot \begin{pmatrix} \beta_{1} \\ \beta_{2} \\ \beta_{3} \end{pmatrix} = \begin{pmatrix} 6 \\ 1 \\ \frac{3 \cdot \sqrt{10}}{10} \end{pmatrix}
+    \end{equation*}
+    From the equation above we get:
+    \begin{equation*}
+        \Vec{\beta} = \begin{pmatrix}1.5 \\ 0.1 \\ 0.6 \end{pmatrix}
+    \end{equation*}
+    The linear predictor is:
+    \begin{equation*}
+        f(x_{1}, x_{2}) = 1.5 + 0.1 \cdot x_{1} + 0.6 \cdot x_{2}
+    \end{equation*}
+    
     \item Predict the output for $\mathbf{x} = (1.5, 1.5)^{\top}$.
+    \begin{equation*}
+        f(1.5, 1.5) = 1.5 + 0.1 \cdot 1.5 + 0.6 \cdot 1.5 = 2.55
+    \end{equation*}
+    
+    The predicted value of $(1.5, 1.5)$ is $2.55$.
+    
 \end{enumerate}
+
+    
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
