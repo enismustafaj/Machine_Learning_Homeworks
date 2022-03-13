@@ -204,7 +204,7 @@ In this problem, you will need to remind yourself about the definition of a posi
             \begin{equation*}
                 \Delta = (1 - \lambda)^{2} - 4 = 0
             \end{equation*}
-            From the equation above we find that the eigenvalues are $-1$ and $-3$, so the matrix is not positive definite.
+            From the equation above we find that the eigenvalues are $-1$ and $3$, so the matrix is not positive definite.
             
         \item Eigenvalues of the second matrix
             For the second matrix we repeat the steps from above.
@@ -219,8 +219,6 @@ In this problem, you will need to remind yourself about the definition of a posi
                 \end{equation*}
                 
                 From the equation above, the eigenvalues are $2$, $2 - \sqrt{2}$, $2 + \sqrt{2}$. The eigenvalues are positive, so the matrix is positive definite.
-        
-         
     \end{enumerate}
     \item You are given the following function:
     \begin{equation*}
@@ -290,7 +288,7 @@ You are given the training data $\mathcal{T} = \left \{ ((1, 1)^{\top}, 2), ((1,
     \begin{table}[h!]
         \centering
         \begin{tabular}{c c c}
-            $l_{11} = \sqrt{a_{11}} = 2 & l_{21} = \frac{a_{21}}{l_{11}} = 3 & l_{22} = \sqrt{a_{22} - l_{21}^{2}} = 1 \\[1em] l_{31} = \frac{a_{31}}{l_{11}} = \frac{9}{2}& l_{32} = \frac{a_{32} - l_{21} \cdot l_{31}}{l_{22}} = \frac{3}{2} & l_{33} = \sqrt{a_{33} - l_{31}^{2} - l_{32}^{2}} = \frac{\sqrt{10}}{2}$
+            $l_{11} = \sqrt{a_{11}} = 2$ & $l_{21} = \frac{a_{21}}{l_{11}} = 3$ & $l_{22} = \sqrt{a_{22} - l_{21}^{2}} = 1$ \\[1em] $l_{31} = \frac{a_{31}}{l_{11}} = \frac{9}{2}$ & $l_{32} = \frac{a_{32} - l_{21} \cdot l_{31}}{l_{22}} = \frac{3}{2}$ & $l_{33} = \sqrt{a_{33} - l_{31}^{2} - l_{32}^{2}} = \frac{\sqrt{10}}{2}$
         \end{tabular}
     \end{table}
     
@@ -339,6 +337,8 @@ You are given the training data $\mathcal{T} = \left \{ ((1, 1)^{\top}, 2), ((1,
     
 \end{homeworkProblem}
 
+\pagebreak
+
 \begin{homeworkProblem}
 Prove Theorem 3.2 from the lecture. If you consider this as too hard, consult the literature from this field to solve the problem. In case you use external literature, make sure that you give a citation for that literature (i.e. say where you took it from) and rephrase the proof appropriately.\\
 
@@ -347,7 +347,7 @@ Assuming the input, output and mixed joint density from Theorem 3.2. To find the
     \begin{split}
         \argmin_{g \in R_{G}} \text{EPE}(f(\textbf{x})) & = \argmin_{g \in R_{G}} E[L(g, f(\textbf{x})) | \textbf{X} = \textbf{x}] \\
         & = \argmin_{g \in R_{G}} P(g = g_{1} | \textbf{X} = \textbf{x}) \cdot L(g_{1}, f(\textbf{x})) + \ldots + P(g = g_{r} | \textbf{X} = \textbf{x}) \cdot L(g_{r}, f(\textbf{x})) \\
-        & = \argmin_{g \in R_{G}} \sum_{i = 1}^{r} P(g = g_{i} | \textbf{X} = \textbf{x}) \cdot L(g_{i}, f(\textbf{x})
+        & = \argmin_{g \in R_{G}} \sum_{i = 1}^{r} P(g = g_{i} | \textbf{X} = \textbf{x}) \cdot L(g_{i}, f(\textbf{x}))
     \end{split}
 \end{equation*}
 
