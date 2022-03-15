@@ -47,6 +47,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.96,0.96,0.96}
 
+
 \lstdefinestyle{python}{
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
@@ -58,14 +59,14 @@
     breaklines=true,
     captionpos=b,
     keepspaces=true,
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
- 
+
 \lstset{style=python}
 \lstset{language=Python}
 
@@ -86,7 +87,7 @@
 \setlength\parindent{0pt}
 
 \newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
-\newcommand{\hmwkDueDate}{Month d, Year}
+\newcommand{\hmwkDueDate}{March 22, 2022}
 \newcommand{\hmwkClass}{Machine Learning}
 \newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
 \newcommand{\groupName}{\textbf{Group HB}}
@@ -99,7 +100,7 @@
 %
 
 \newcommand{\enterProblemHeader}[1]{
-	\nobreak{}
+    \nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
@@ -132,6 +133,7 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+
 \newcounter{programmingPartCounter}
 \newcounter{programmingProblemCounter}
 
@@ -160,7 +162,7 @@
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at XX:XX}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00}\\
     \vspace{3in}
 }
 
@@ -176,37 +178,45 @@
 \newcommand{\solution}{\textbf{\large Solution}}
 \newcommand{\comment}[1]{} % Multi-line comment
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
 \maketitle
 \pagebreak
 \begin{homeworkProblem}
+Consider the following training data:
+\begin{equation*}
+    \mathcal{T} = \left \{ ((-1, 0)^{\top}, 3), ((1, 3)^{\top}, -1), ((-2, 1)^{\top}, 0), ((0, 4)^{\top}, 2) \right \}
+\end{equation*}
 
-
-\begin{lstlisting}
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-def mandelbrot(h, w, maxit=20, r=2):
-    """Returns an image of the Mandelbrot fractal of size (h,w)."""
-    x = np.linspace(-2.5, 1.5, 4*h+1)
-    y = np.linspace(-1.5, 1.5, 3*w+1)
-    A, B = np.meshgrid(x, y)
-    C = A + B*1j
-    z = np.zeros_like(C)
-    divtime = maxit + np.zeros(z.shape, dtype=int)
-
-    for i in range(maxit):
-        z = z**2 + C
-        diverge = abs(z) > r                    # who is diverging
-        div_now = diverge & (divtime == maxit)  # who is diverging now
-        divtime[div_now] = i                    # note when
-        z[diverge] = r                          # avoid diverging too much
-
-    return divtime
-plt.imshow(mandelbrot(400, 400))
-\end{lstlisting}
-
+We want to compute the predictor from linear regression by least squares. However, instead of using Theorem 4.1, we use batch gradient descent to compute the coefficient vector $\hat{\beta}$. Choose the initial guess $\beta^{(0)} = (0, 0, 1)^{\top}$ and calculate the first two steps of batch gradient descent with learning rate $\eta = 0.25$.
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+In this task, we consider again the training data
+\begin{equation*}
+    \mathcal{T} = \left \{ ((4, 1)^{\top}, 2), ((2, 8)^{\top}, -14), ((1, 0)^{\top}, 1), ((3, 2)^{\top}, -1) \right \}
+\end{equation*}
+
+However, this time we do not use the linear model. Instead we use the quadratic model
+\begin{equation*}
+    f(\textbf{X}) = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}X_{1}X_{2} + \beta_{4}X_{1}^{2} \beta_{5}X_{2}^{2}
+\end{equation*}
+and stick to the $L_{2}$ loss.
+\begin{enumerate}[a)]
+    \item Derive the gradient $\nabla_{\beta} L_{2}(y_{i}, f(\mathbf{x_{i}}))$ of the loss with respect to the coefficient vector.
+    \item Use the initial guess $\beta^{(0)} = \mathbf{0}$ and the learning rate $\eta = 0.1$ and perform the first two steps of stochastic gradient descent. Recall that in stochastic gradient descent, we at some point pick random samples from the training set. In order to get a unique solution in this task, we assume that a random selection of samples from the training set would give you the training samples in their original order.
+    \item Use the initial guess $\beta^{(0)} = \mathbf{0}$ and the learning rate $\eta = 0.1$ and perform the first two steps of mini-batch gradient descent with a batch size of $N_{b} = 2$. Use the same approach for the randomization part as in the previous sub-task.
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{programmingProblem}
+In this programming exercise, you will implement mini-batch gradient descent in order to train a linear model using least squares. Note that you can use an implementation of mini-batch gradient descent to get both, batch gradient descent and stochastic gradient descent.
+
+As training data, you will use again the \href{https://archive.ics.uci.edu/ml/datasets/Energy+efficiency}{Energy efficiency Data Set} from the UCI Machine Learning Repository, where we consider the required heating energy as output quantity.
+
+To be more specific, you are supposed to reproduce Example 5.2 from the lecture notes, however with your own implementation of mini-batch gradient descent.
+\end{programmingProblem}
+
 \end{document}
