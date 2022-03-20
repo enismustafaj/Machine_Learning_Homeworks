@@ -198,12 +198,12 @@ We want to compute the predictor from linear regression by least squares. Howeve
         \beta^{(n + 1)} = \beta^{(n)} -  \eta \cdot \sum_{i=1}^{N}\nabla L(y_{i}, f(x_{i}))
     \end{equation*}
     
-    Firstly, we calculate the partial derivatives of the loss function with respect to coefficient vector
+    First, we calculate the partial derivatives of the loss function with respect to coefficient vector:
     
     \begin{equation*}
         \nabla L(y_{i}, f(x_{i})) = 
         \begin{pmatrix}
-            \frac{\partial L(y, f(x))}{\beta_{0}} \\[1em] \frac{\partial L(y, f(x))}{\beta_{1}} \\[1em] \frac{\partial L(y, f(x))}{\beta_{2}}
+            \frac{\partial L(y, f(x))}{\beta_{0}} \\[0.5em] \frac{\partial L(y, f(x))}{\beta_{1}} \\[0.5em] \frac{\partial L(y, f(x))}{\beta_{2}}
         \end{pmatrix} =
         \begin{pmatrix}
             -2 \cdot (y - \beta_{0} - \beta_{1} \cdot x_{0} + \beta_{2} \cdot x_{2}) \\
@@ -212,7 +212,7 @@ We want to compute the predictor from linear regression by least squares. Howeve
         \end{pmatrix}
     \end{equation*}
     
-    By applying this to the general formula we get
+    By applying this to the general formula, we get:
     \begin{equation*}
          \beta^{(n + 1)} = \beta^{(n)} + 2 \cdot \eta \cdot \sum_{i=1}^{N} \begin{pmatrix}
             (y_{i} - \beta_{0} - \beta_{1} \cdot x_{0(i)} - \beta_{2} \cdot x_{2(i)}) \\
@@ -221,9 +221,9 @@ We want to compute the predictor from linear regression by least squares. Howeve
         \end{pmatrix}
     \end{equation*}
     
-    Now we substitute the values of training data in the formula to compute the 2 steps of coefficients.
+    We substitute the values of training data in the formula to compute the coefficients from the first 2 iteration steps.
     \begin{equation*}
-        \beta^{1} = \beta^{0} + \frac{1}{2} \cdot \Bigg[ \begin{pmatrix} 3 \\ -3 \\ 0 \end{pmatrix} + \begin{pmatrix} -4 \\ -4 \\ -12 \end{pmatrix} + \begin{pmatrix} -1 \\ 2 \\ -1 \end{pmatrix} + \begin{pmatrix} -6 \\ 0 \\ -24 \end{pmatrix}\Bigg]
+        \beta^{1} = \beta^{0} + \frac{1}{2} \cdot \left [ \begin{pmatrix} 3 \\ -3 \\ 0 \end{pmatrix} + \begin{pmatrix} -4 \\ -4 \\ -12 \end{pmatrix} + \begin{pmatrix} -1 \\ 2 \\ -1 \end{pmatrix} + \begin{pmatrix} -6 \\ 0 \\ -24 \end{pmatrix} \right ]
     \end{equation*}
     
     \begin{equation*}
@@ -233,28 +233,30 @@ We want to compute the predictor from linear regression by least squares. Howeve
             -8 \\ -5 \\ -37
         \end{pmatrix} = 
         \begin{pmatrix}
-            -4 \\ -\frac{5}{2} \\[1em] -\frac{-35}{2}
+            -4 \\ -\frac{5}{2} \\[0.5em] -\frac{35}{2}
         \end{pmatrix}
     \end{equation*}
     
     To compute the second step we use the values of the new coefficients derived from above.
     
     \begin{equation*}
-        \beta^{2} = \beta^{1} + \frac{1}{2} \cdot \Bigg[ \begin{pmatrix} \frac{9}{2} \\ -\frac{9}{2} \\ 0 \end{pmatrix} + \begin{pmatrix} 58 \\ 28 \\ 174 \end{pmatrix} + \begin{pmatrix} \frac{33}{2} \\ -33 \\ \frac{33}{2} \end{pmatrix} + \begin{pmatrix} 76 \\ 0 \\ 304 \end{pmatrix}\Bigg]
+        \beta^{2} = \beta^{1} + \frac{1}{2} \cdot \left [ \begin{pmatrix} \frac{9}{2} \\ -\frac{9}{2} \\ 0 \end{pmatrix} + \begin{pmatrix} 58 \\ 28 \\ 174 \end{pmatrix} + \begin{pmatrix} \frac{33}{2} \\ -33 \\ \frac{33}{2} \end{pmatrix} + \begin{pmatrix} 76 \\ 0 \\ 304 \end{pmatrix} \right ]
     \end{equation*}
     
      \begin{equation*}
         \beta^{2} = \begin{pmatrix}
-            -4 \\ \frac{-5}{2} \\[1em] \frac{-35}{2} 
+            -4 \\[0.5em] \frac{-5}{2} \\[0.5em] \frac{-35}{2} 
         \end{pmatrix} + \frac{1}{2} \cdot \begin{pmatrix}
-            155 \\ \frac{41}{2} \\[1em] \frac{849}{2}
+            155 \\[0.5em] \frac{41}{2} \\[0.5em] \frac{849}{2}
         \end{pmatrix} = 
         \begin{pmatrix}
-            \frac{147}{2} \\[1em] \frac{31}{2} \\[1em] \frac{919}{4}
+            \frac{147}{2} \\[0.5em] \frac{31}{2} \\[0.5em] \frac{919}{4}
         \end{pmatrix}   
     \end{equation*}
 
 \end{homeworkProblem}
+
+\pagebreak
 
 \begin{homeworkProblem}
 In this task, we consider again the training data
@@ -271,23 +273,25 @@ and stick to the $L_{2}$ loss.
     \item Derive the gradient $\nabla_{\beta} L_{2}(y_{i}, f(\mathbf{x_{i}}))$ of the loss with respect to the coefficient vector.
     
     \begin{equation*}
+        \resizebox{0.95\textwidth}{!}{$
         \nabla_{\beta} L_{2}(y_{i}, f(\mathbf{x_{i}})) = 
         \begin{pmatrix}
-            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{0}} \\[1em]
-            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{1}} \\[1em]
-            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{2}} \\[1em]
-            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{3}} \\[1em]
-            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{4}} \\[1em]
+            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{0}} \\[0.5em]
+            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{1}} \\[0.5em]
+            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{2}} \\[0.5em]
+            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{3}} \\[0.5em]
+            \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{4}} \\[0.5em]
             \frac{\partial L_{2}(y_{i}, f(\mathbf{x_{i}}))}{\beta_{5}} 
         \end{pmatrix} = 
         \begin{pmatrix}
-            2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \\
-            2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2}) \cdot x_{1}) \\
-            2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2}) \cdot x_{2}) \\
-            2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2}) \cdot x_{1} x_{2}) \\
-            2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2}) \cdot x_{1}^{2}) \\
-            2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})\cdot x_{2}^{2})
-        \end{pmatrix}
+            -2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \\
+            -2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \cdot x_{1} \\
+            -2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \cdot x_{2} \\
+            -2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \cdot x_{1} x_{2} \\
+            -2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \cdot x_{1}^{2} \\
+            -2 \cdot (y_{1} - (\beta_{0} + \beta_{1}\cdot x_{1} + \beta_{2}\cdot x_{2} + \beta_{3}\cdot x_{1} \cdot x_{2} + \beta_{4} \cdot x_{1}^{2} + \beta_{5} \cdot x_{2}^{2})) \cdot x_{2}^{2}
+        \end{pmatrix}$
+        }
     \end{equation*}
     \item Use the initial guess $\beta^{(0)} = \mathbf{0}$ and the learning rate $\eta = 0.1$ and perform the first two steps of stochastic gradient descent. Recall that in stochastic gradient descent, we at some point pick random samples from the training set. In order to get a unique solution in this task, we assume that a random selection of samples from the training set would give you the training samples in their original order.
     
@@ -295,7 +299,7 @@ and stick to the $L_{2}$ loss.
     \begin{equation*}
         \beta^{(n + 1)} = \beta^{(n)} + 2 \cdot \eta \cdot X^{T} \cdot (y - X \cdot \beta^{n})
     \end{equation*}
-    For the first step we have
+    For the first step, we calculate:
     
     \begin{equation*}
         X = \begin{pmatrix}1 & 4 & 1 & 4 & 16 & 1 \end{pmatrix} \hspace{1cm} X^{T} = \begin{pmatrix}
@@ -309,14 +313,14 @@ and stick to the $L_{2}$ loss.
             0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0
         \end{pmatrix} + \frac{1}{5} \cdot \begin{pmatrix}
             1 \\ 4 \\ 1 \\ 4 \\ 16 \\ 1
-        \end{pmatrix} \cdot (2 - \begin{bmatrix}1 & 4 & 1 & 4 & 16 & 1 \end{bmatrix} \cdot \begin{pmatrix}
+        \end{pmatrix} \cdot \left (2 - \begin{bmatrix}1 & 4 & 1 & 4 & 16 & 1 \end{bmatrix} \cdot \begin{pmatrix}
             0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0
-        \end{pmatrix}) = \begin{pmatrix}
-            \frac{2}{5} \\[1em] \frac{8}{5} \\[1em] \frac{2}{5} \\[1em] \frac{8}{5} \\[1em] \frac{32}{5} \\[1em] \frac{2}{5}
+        \end{pmatrix} \right ) = \begin{pmatrix}
+            \frac{2}{5} \\[0.5em] \frac{8}{5} \\[0.5em] \frac{2}{5} \\[0.5em] \frac{8}{5} \\[0.5em] \frac{32}{5} \\[0.5em] \frac{2}{5}
         \end{pmatrix}
     \end{equation*}
     
-    For the second step we have:
+    For the second step, we calculate:
     \begin{equation*}
         X = \begin{pmatrix}1 & 2 & 8 & 16 & 4 & 64 \end{pmatrix} \hspace{1cm} X^{T} = \begin{pmatrix}
             1 \\ 2 \\ 8 \\ 16 \\ 4 \\ 64
@@ -325,12 +329,12 @@ and stick to the $L_{2}$ loss.
     \end{equation*}
     \begin{equation*}
         \beta^{2} = \begin{pmatrix}
-            \frac{2}{5} \\[1em] \frac{8}{5} \\[1em] \frac{2}{5} \\[1em] \frac{8}{5} \\[1em] \frac{32}{5} \\[1em] \frac{2}{5}
+            \frac{2}{5} \\[0.5em] \frac{8}{5} \\[0.5em] \frac{2}{5} \\[0.5em] \frac{8}{5} \\[0.5em] \frac{32}{5} \\[0.5em] \frac{2}{5}
         \end{pmatrix} + \frac{1}{5} \cdot \begin{pmatrix}
             1 \\ 2 \\ 8 \\ 16 \\ 4 \\ 64
-        \end{pmatrix} \cdot ( -14 - \begin{pmatrix}1 & 2 & 8 & 16 & 4 & 64 \end{pmatrix} \cdot \begin{pmatrix}
-            \frac{2}{5} \\[1em] \frac{8}{5} \\[1em] \frac{2}{5} \\[1em] \frac{8}{5} \\[1em] \frac{32}{5} \\[1em] \frac{2}{5}
-        \end{pmatrix}) = \begin{pmatrix}-\frac{478}{25} \\[1em] -\frac{936}{25} \\[1em] -\frac{3894}{25} \\[1em] -\frac{7768}{25} \\[1em] -\frac{1792}{25} \\[1em] -\frac{31222}{25}\end{pmatrix}
+        \end{pmatrix} \cdot \left ( -14 - \begin{pmatrix}1 & 2 & 8 & 16 & 4 & 64 \end{pmatrix} \cdot \begin{pmatrix}
+            \frac{2}{5} \\[0.5em] \frac{8}{5} \\[0.5em] \frac{2}{5} \\[0.5em] \frac{8}{5} \\[0.5em] \frac{32}{5} \\[0.5em] \frac{2}{5}
+        \end{pmatrix} \right ) = \begin{pmatrix}-\frac{478}{25} \\[0.5em] -\frac{936}{25} \\[0.5em] -\frac{3894}{25} \\[0.5em] -\frac{7768}{25} \\[0.5em] -\frac{1792}{25} \\[0.5em] -\frac{31222}{25}\end{pmatrix}
     \end{equation*}
     \item Use the initial guess $\beta^{(0)} = \mathbf{0}$ and the learning rate $\eta = 0.1$ and perform the first two steps of mini-batch gradient descent with a batch size of $N_{b} = 2$. Use the same approach for the randomization part as in the previous sub-task.
     
@@ -375,7 +379,7 @@ and stick to the $L_{2}$ loss.
     \end{equation*}
     \begin{equation*}
         \beta^{1} = \begin{pmatrix}
-            -\frac{12}{5} \\[1em] -4 \\[1em] -22 \\[1em] -\frac{216}{5} \\[1em] -\frac{24}{5} \\[1em] -\frac{894}{5}
+            -\frac{12}{5} \\[0.5em] -4 \\[0.5em] -22 \\[0.5em] -\frac{216}{5} \\[0.5em] -\frac{24}{5} \\[0.5em] -\frac{894}{5}
         \end{pmatrix}
     \end{equation*}
     For the second step we have:
@@ -401,7 +405,7 @@ and stick to the $L_{2}$ loss.
     \end{equation*}
     \begin{equation*}
         \beta{2} = \begin{pmatrix}
-            -\frac{12}{5} \\[1em] -4 \\[1em] -22 \\[1em] -\frac{216}{5} \\[1em] -\frac{24}{5} \\[1em] -\frac{894}{5}
+            -\frac{12}{5} \\[0.5em] -4 \\[0.5em] -22 \\[0.5em] -\frac{216}{5} \\[0.5em] -\frac{24}{5} \\[0.5em] -\frac{894}{5}
         \end{pmatrix} + \frac{1}{5} \cdot \begin{pmatrix}
             1 & 1 \\
             1 & 3 \\
@@ -409,16 +413,16 @@ and stick to the $L_{2}$ loss.
             0 & 6 \\
             1 & 9 \\
             0 & 4
-        \end{pmatrix} \cdot ( \begin{pmatrix}
+        \end{pmatrix} \cdot \left ( \begin{pmatrix}
             1 \\ -11
         \end{pmatrix} - \begin{pmatrix}1 & 1 & 0 & 0 & 1 & 0 \\ 1 & 3 & 2 & 6 & 9 & 4  \end{pmatrix} \cdot \begin{pmatrix}
-            -\frac{12}{5} \\[1em] -4 \\[1em] -22 \\[1em] -\frac{216}{5} \\[1em] -\frac{24}{5} \\[1em] -\frac{894}{5}
-        \end{pmatrix})
+            -\frac{12}{5} \\[0.5em] -4 \\[0.5em] -22 \\[0.5em] -\frac{216}{5} \\[0.5em] -\frac{24}{5} \\[0.5em] -\frac{894}{5}
+        \end{pmatrix} \right )
     \end{equation*}
     
     \begin{equation*}
         \beta{2} = \begin{pmatrix}
-            -\frac{12}{5} \\[1em] -4 \\[1em] -22 \\[1em] -\frac{216}{5} \\[1em] -\frac{24}{5} \\[1em] -\frac{894}{5}
+            -\frac{12}{5} \\[0.5em] -4 \\[0.5em] -22 \\[0.5em] -\frac{216}{5} \\[0.5em] -\frac{24}{5} \\[0.5em] -\frac{894}{5}
         \end{pmatrix} + \frac{1}{5} \cdot \begin{pmatrix}
             1 & 1 \\
             1 & 3 \\
@@ -426,13 +430,13 @@ and stick to the $L_{2}$ loss.
             0 & 6 \\
             1 & 9 \\
             0 & 4
-        \end{pmatrix} \cdot ( \begin{pmatrix}
-            1 \\ -11
-        \end{pmatrix} + \begin{pmatrix}\frac{56}{5}\\ \frac{5380}{5}\end{pmatrix})
+        \end{pmatrix} \cdot \left ( \begin{pmatrix}
+            1 \\[0.5em] -11
+        \end{pmatrix} + \begin{pmatrix}\frac{56}{5}\\[0.5em] \frac{5380}{5}\end{pmatrix} \right )
     \end{equation*}
     
     \begin{equation*}
-        \beta^{2} = \begin{pmatrix}-\frac{12}{5} \\[1em] -4 \\[1em] -22 \\[1em] \frac{216}{5} \\[1em] -\frac{24}{5} \\[1em] -\frac{894}{5}\end{pmatrix}+\begin{pmatrix}\frac{5436}{25} \\[1em] \frac{16186}{25} \\[1em] 430 \\[1em] 1290 \\[1em] \frac{48436}{25} \\[1em] 860\end{pmatrix} = \begin{pmatrix}\frac{5376}{25} \\[1em] \frac{16086}{25} \\[1em] 408\\ \frac{6234}{5} \\[1em] \frac{48316}{25} \\[1em] \frac{3406}{5}\end{pmatrix}
+        \beta^{2} = \begin{pmatrix}-\frac{12}{5} \\[0.5em] -4 \\[0.5em] -22 \\[0.5em] \frac{216}{5} \\[0.5em] -\frac{24}{5} \\[0.5em] -\frac{894}{5}\end{pmatrix}+\begin{pmatrix}\frac{5436}{25} \\[0.5em] \frac{16186}{25} \\[0.5em] 430 \\[0.5em] 1290 \\[0.5em] \frac{48436}{25} \\[0.5em] 860\end{pmatrix} = \begin{pmatrix}\frac{5376}{25} \\[0.5em] \frac{16086}{25} \\[0.5em] 408\\ \frac{6234}{5} \\[0.5em] \frac{48316}{25} \\[0.5em] \frac{3406}{5}\end{pmatrix}
     \end{equation*}
     
 \end{enumerate}
@@ -443,7 +447,9 @@ In this programming exercise, you will implement mini-batch gradient descent in 
 
 As training data, you will use again the \href{https://archive.ics.uci.edu/ml/datasets/Energy+efficiency}{Energy efficiency Data Set} from the UCI Machine Learning Repository, where we consider the required heating energy as output quantity.
 
-To be more specific, you are supposed to reproduce Example 5.2 from the lecture notes, however with your own implementation of mini-batch gradient descent.
+To be more specific, you are supposed to reproduce Example 5.2 from the lecture notes, however with your own implementation of mini-batch gradient descent.\\
+
+The implementation of gradient descent can be found in the file \texttt{programming\_exercises.ipynb}. There are three classes, \texttt{MiniBatchGradientDescentLinearRegressor}, \texttt{SGDLinearRegressor}, and \\\texttt{BGDLinearRegressor}, the latter two being simply proxies for the first one. The first class implements the algorithm for gradient descent in the \texttt{fit} method. The class expects the training data to be NumPy arrays. The latter classes expect only two arguments, \texttt{learning\_rate} and \texttt{epochs}, while the parent class also expects the \texttt{batch\_size} argument. In case \texttt{batch\_size} argument is not provided, it is set to match the whole training set size given. Example 5.2 is also provided at the end of the notebook for comparison.
 \end{programmingProblem}
 
 \end{document}
