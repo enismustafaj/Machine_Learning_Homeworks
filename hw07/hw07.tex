@@ -203,7 +203,159 @@ In this task, we consider the data set
 \end{equation*}
 \begin{enumerate}[a)]
     \item Evaluate the (expected) generalization error of the kNN regressor with $k = 2$ by $\mathcal{K}$-fold cross validation with $\mathcal{K} = 3$. (Do a deterministic, i.e. not randomized, splitting of the given data following the ordering of the samples.)
+    
+    Following Algorithm 10 from the Lecture Notes for estimating the generalization error using $\mathcal{K}$-fold cross validation:
+    
+    \begin{enumerate}[1.]
+        \item Split $\mathcal{T}$ into equally sized sets $\mathcal{T}_{1}, \ldots, \mathcal{T}_{\mathcal{K}}$
+        \item For $i \in \{ 1, \ldots, \mathcal{K} \}$:
+        \begin{enumerate}[a)]
+            \item $\mathcal{T}_{\text{train}} \gets \mathcal{T} \setminus \mathcal{T}_{i}$
+            \item $f_{\mathcal{T}_{\text{train}}} \gets \text{train}(f, \mathcal{T}_{\text{train}})$
+            \item $\varepsilon_{i} \gets \frac{1}{|\mathcal{T}_{i}|} \sum_{(\boldsymbol x, \boldsymbol y) \in \mathcal{T}_{i}} L(\boldsymbol y, f_{\mathcal{T}_{\text{train}}}(\boldsymbol x))$
+        \end{enumerate}
+        \item $\varepsilon \gets \frac{1}{\mathcal{K}} \sum_{i = 1}^{K} \varepsilon_{i}$
+        \item Return $\varepsilon$
+    \end{enumerate}
+    
+    The following splits are created deterministically while using $\mathcal{K}$-fold cross validation with $\mathcal{K} = 3$:
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Split} & \textbf{Training Set $\mathcal{T}_{\text{train}}$} & \textbf{Test Set $\mathcal{T}_{i}$} \\ \hline
+    1 & $\{(1, 1), (-1, 1), (0, 0), (3, 9)\}$ & $\{(-2, 4), (2, 4)\}$                   \\ \hline
+    2 & $\{(-2, 4), (2, 4), (0, 0), (3, 9)\}$ & $\{(1, 1), (-1, 1)\}$ \\ \hline
+    3 & $\{(-2, 4), (2, 4), (1, 1), (-1, 1)\}$ & $\{(0, 0), (3, 9)\}$\\ \hline
+    \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item \textbf{Split 1:}
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Data Point} & \textbf{True} & \textbf{Predicted} \\ \hline
+        $(-2)$ & $(4)$ & $(0.5)$ \\ \hline
+        $(2)$ & $(4)$ & $(5)$ \\ \hline
+        \end{tabular}
+        \end{table}
+        
+        Mean squared error for the split is $\varepsilon_{1} = 6.625$.
+        
+        \item \textbf{Split 2:}
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Data Point} & \textbf{True} & \textbf{Predicted} \\ \hline
+        $(1)$ & $(1)$ & $(2)$ \\ \hline
+        $(-1)$ & $(1)$ & $(2)$ \\ \hline
+        \end{tabular}
+        \end{table}
+        Mean squared error for the split is $\varepsilon_{2} = 1$.
+        
+        \item \textbf{Split 3:}
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Data Point} & \textbf{True} & \textbf{Predicted} \\ \hline
+        $(0)$ & $(0)$ & $(1)$ \\ \hline
+        $(3)$ & $(9)$ & $(2.5)$ \\ \hline
+        \end{tabular}
+        \end{table}
+        Mean squared error for the split is $\varepsilon_{3} = 21.625$.
+    \end{itemize}
+    
+    The estimation of the (expected) generalization error is $\varepsilon = 9.75$.
     \item Evaluate the (expected) generalization error of the linear model by leave-one-out cross validation. (It is fine to use the help of a computer to fit the individual linear models.)
+    
+    Following Algorithm 9 from the Lecture Notes for estimating the generalization error using Leave One Out cross validation:
+    
+    \begin{enumerate}[1.]
+        \item For $i \in \{ 1, \ldots, N \}$:
+        \begin{enumerate}[a)]
+            \item $\mathcal{T}_{\text{train}} \gets \mathcal{T} \setminus \{ (\boldsymbol x_{i}, \boldsymbol y_{i}) \}$
+            \item $f_{\mathcal{T}_{\text{train}}} \gets \text{train}(f, \mathcal{T}_{\text{train}})$
+            \item $\varepsilon_{i} \gets L(\boldsymbol y_{i}, f_{\mathcal{T}_{\text{train}}}(\boldsymbol x_{i}))$
+        \end{enumerate}
+        \item $\varepsilon \gets \frac{1}{\mathcal{K}} \sum_{i = 1}^{N} \varepsilon_{i}$
+        \item Return $\varepsilon$
+    \end{enumerate}
+    
+    The following splits are created while using Leave One Out cross validation:
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Split} & \textbf{Training Set $\mathcal{T}_{\text{train}}$} & \textbf{Test Set $\mathcal{T}_{i}$} \\ \hline
+    1 & $\{(2, 4), (1, 1), (-1, 1), (0, 0), (3, 9)\}$ & $\{(-2, 4)\}$                   \\ \hline
+    2 & $\{(-2, 4), (1, 1), (-1, 1), (0, 0), (3, 9)\}$ & $\{(2, 4)\}$ \\ \hline
+    3 & $\{(-2, 4), (2, 4), (-1, 1), (0, 0), (3, 9)\}$ & $\{(1, 1)\}$\\ \hline
+    4 & $\{(-2, 4), (2, 4), (1, 1), (0, 0), (3, 9)\}$ & $\{(-1, 1)\}$\\ \hline
+    5 & $\{(-2, 4), (2, 4), (1, 1), (-1, 1), (3, 9)\}$ & $\{(0, 0)\}$\\ \hline
+    6 & $\{(-2, 4), (2, 4), (1, 1), (-1, 1), (0, 0)\}$ & $\{(3, 9)\}$\\ \hline
+    \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item \textbf{Split 1:}
+        Linear model fit from the training set data has the prediction function:
+        \begin{equation*}
+            \hat{y} = 1 + 2 x
+        \end{equation*}
+        
+        The true value of the data point $(-2)$ is $4$. Predicted value for the data point $(-2)$ is $-3$.
+        
+        Loss using mean squared error for the split is $\varepsilon_{1} = 49$.
+        \item \textbf{Split 2:}
+        Linear model fit from the training set data has the prediction function:
+        \begin{equation*}
+            \hat{y} = 2.78378378 + 1.08108108 x
+        \end{equation*}
+        
+        The true value of the data point $(2)$ is $4$. Predicted value for the data point $(2)$ is $4.94594595$.
+        
+        Loss using mean squared error for the split is $\varepsilon_{2} = 0.89481373$.
+        \item \textbf{Split 3:}
+        Linear model fit from the training set data has the prediction function:
+        \begin{equation*}
+            \hat{y} = 3.1627907 + 1.09302326 x
+        \end{equation*}
+        
+        The true value of the data point $(1)$ is $1$. Predicted value for the data point $(1)$ is $4.25581395$.
+        
+        Loss using mean squared error for the split is $\varepsilon_{3} = 10.6003245$.
+        \item \textbf{Split 4:}
+        Linear model fit from the training set data has the prediction function:
+        \begin{equation*}
+            \hat{y} = 2.86486486 + 0.91891892 x
+        \end{equation*}
+        
+        The true value of the data point $(-1)$ is $1$. Predicted value for the data point $(-1)$ is $1.94594595$.
+        
+        Loss using mean squared error for the split is $\varepsilon_{4} = 0.89481373$.
+        \item \textbf{Split 5:}
+        Linear model fit from the training set data has the prediction function:
+        \begin{equation*}
+            \hat{y} = 3.25581395 + 0.90697674 x
+        \end{equation*}
+        
+        The true value of the data point $(0)$ is $0$. Predicted value for the data point $(0)$ is $3.25581395$.
+        
+        Loss using mean squared error for the split is $\varepsilon_{5} = 10.6003245$.
+        \item \textbf{Split 6:}
+        Linear model fit from the training set data has the prediction function:
+        \begin{equation*}
+            \hat{y} = 0 + 2 x
+        \end{equation*}
+        
+        The true value of the data point $(3)$ is $9$. Predicted value for the data point $(3)$ is $2$.
+        
+        Loss using mean squared error for the split is $\varepsilon_{6} = 49$.
+    \end{itemize}
+    
+    The estimation of the (expected) generalization error is $\varepsilon = 20.165046077460385$.
 \end{enumerate}
 \end{homeworkProblem}
 \begin{homeworkProblem}
@@ -215,7 +367,11 @@ Provide quantitative reasoning to the questions below.
 \end{homeworkProblem}
 \begin{programmingProblem}
 In this programming exercise, you will implement the validation set approach and $\mathcal{K}$-fold cross validation, while recalling that leave-one-out cross validation is $\mathcal{K}$-fold cross validation for $\mathcal{K} = N$, if $N$ is the number of training samples.\\
-Implement the study carried out in Example 6.3 from the lecture notes. Note that due to randomization, you might get other results that the ones shown in the example.
+Implement the study carried out in Example 6.3 from the lecture notes. Note that due to randomization, you might get other results that the ones shown in the example.\\
+
+The implementation of the cross validation approaches and Example 6.3 can be found in the file\\ \texttt{programming\_exercises.ipynb}. There are two classes, \texttt{KFold} and \texttt{LeaveOneOut} that implement the two respective approaches. A function, \texttt{train\_test\_split}, is used for creating the train and test splits used for validation set approach.
+
+The behavior of EGE in the output graph follows the same as the one provided in Example 6.3.
 \end{programmingProblem}
 
 \end{document}
