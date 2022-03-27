@@ -193,7 +193,70 @@ In this task, we consider the training data
 \end{equation*}
 \begin{enumerate}[a)]
     \item Build a predictor using kNN regression for $k = 6$ and evaluate the training error of the predictor.
+    
+    The predictor for kNN regression with $k=6$ is 
+    \begin{equation*}
+        f(x) = \frac{1}{6} \cdot \sum_{x_{i} \in N_{6}(x)} y_{i}
+    \end{equation*}
+    
+    where $N_{6}(x)$ are the 6 nearest neighbours of point $x$. We compute the predicted values for each input data:
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{c c c}
+             $f(x_{1}) = \frac{25 + 14 + 21 + 12 + 32 + 18}{6} = 20.33$ &  $f(x_{2}) = \frac{21 + 14 + 25 + 12 + 32 + 18}{6} = 20.33$ & $f(x_{3}) = \frac{21 + 14 + 25 + 12 + 32 + 18}{6} = 20.33$\\[1em]
+             $f(x_{4}) = \frac{21 + 14 + 25 + 14 + 32 + 18}{6} = 20.67$ & $f(x_{5}) = \frac{18 + 14 + 25 + 12 + 32 + 14}{6} = 19.17$ & $f(x_{6}) = \frac{21 + 14 + 25 + 18 + 32 + 14}{6} = 20.67$ \\[1em]
+             $f(x_{7}) = \frac{21 + 14 + 25 + 14 + 32 + 18}{6} = 20.67$ & $f(x_{8}) = \frac{18 + 21 + 25 + 12 + 32 + 14}{6} = 20.33$ & $f(x_{9}) = \frac{21 + 12 + 25 + 18 + 32 + 14}{6} = 20.33$ \\[1em]
+        \end{tabular}
+    \end{table}
+    Now we compute the training error by the formula:
+    \begin{equation*}
+        TE(f, \mathcal{T}) = \frac{1}{N} \cdot \sum_{i = 1}^{N}L(y_{i}, f(x_{i})) = \frac{1}{9} \cdot \sum_{i = 1}^{9} (y_{i} - f(x_{i}))^{2}
+    \end{equation*}
+    
+    By substituting the values from above, we get $TE(f, \mathcal{T}) = 39.51$
+    
     \item Build a predictor using linear regression by least squares and evaluate the training error of the linear model.
+    
+    Firstly, we need to find the coefficients of the model by the formula:
+    \begin{equation*}
+        \beta = (\mathcal{X}^{T} \cdot X)^{-1} \cdot X^{T} \cdot y
+    \end{equation*}
+    
+    where
+    
+    \begin{equation*}
+        \mathcal{X} = \begin{pmatrix}1 & 1 & 7 \\ 1 & 2 & 5 \\ 1 & 2 & 6 \\1 & 3 & 3 \\ 1 & 7 & 1 \\ 1 & 3 & 1 \\ 1 & 4 & 2 \\ 1 & 5 & 4 \\ 1 & 5 & 6 \end{pmatrix} \hspace{1cm}
+        \mathcal{X}^{T} = \begin{pmatrix}1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 1 & 2 & 2 & 3 & 7 & 3 & 4 & 5 & 5 \\ 7 & 5 & 6 & 3 & 1 & 1 & 2 & 4 & 6\end{pmatrix} \hspace{1cm}
+        y = \begin{pmatrix} 25 \\ 21 \\ 14 \\ 32 \\ 14 \\ 14 \\ 25 \\ 18 \\ 12 \end{pmatrix}
+    \end{equation*}
+    
+    By solving the linear equation:
+    
+    
+    \begin{equation*}
+        \mathcal{X}^{T} \cdot \mathcal{X} \cdot \beta = \mathcal{X}^{T} \cdot y
+    \end{equation*}
+    we get the vector of coefficients    $\beta = \begin{pmatrix}\frac{55170}{1831}\\[1em] -\frac{7465}{3662}\\[1em] -\frac{1619}{1831}\end{pmatrix}$  and the predictor $f(x) = x^{T} \cdot \beta$
+    
+    Now, we calculate the the predicted values for each of our input data
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{c c c}
+             $f(x_{1}) = x_{1}^{T} \cdot \beta = 21.9$ &  $f(x_{2}) = x_{2}^{T} \cdot \beta = 21.6$ & $f(x_{3}) = x_{3}^{T} \cdot \beta = 19.7$\\[1em]
+             $f(x_{4}) = x_{4}^{T} \cdot \beta = 21.4$ & $f(x_{5}) = x_{5}^{T} \cdot \beta = 15$ & $f(x_{6}) = x_{6}^{T} \cdot \beta = 23.1$ \\[1em]
+             $f(x_{7}) = x_{7}^{T} \cdot \beta = 20.2$ & $f(x_{8}) = x_{8}^{T} \cdot \beta = 16.4$ & $f(x_{9}) = x_{9}^{T} \cdot \beta = 14.6$ \\[1em]
+        \end{tabular}
+    \end{table}
+    
+    Now we compute the training error by the formula:
+    \begin{equation*}
+        TE(f, \mathcal{T}) = \frac{1}{N} \cdot \sum_{i = 1}^{N}L(y_{i}, f(x_{i})) = \frac{1}{9} \cdot \sum_{i = 1}^{9} (y_{i} - f(x_{i}))^{2}
+    \end{equation*}
+    
+    By substituting the values from above in the formula, we get $TE(f, \mathcal{T}) = 31.7$
+    
 \end{enumerate}
 \end{homeworkProblem}
 \begin{homeworkProblem}
@@ -203,7 +266,6 @@ In this task, we consider the data set
 \end{equation*}
 \begin{enumerate}[a)]
     \item Evaluate the (expected) generalization error of the kNN regressor with $k = 2$ by $\mathcal{K}$-fold cross validation with $\mathcal{K} = 3$. (Do a deterministic, i.e. not randomized, splitting of the given data following the ordering of the samples.)
-    
     Following Algorithm 10 from the Lecture Notes for estimating the generalization error using $\mathcal{K}$-fold cross validation:
     
     \begin{enumerate}[1.]
@@ -362,16 +424,73 @@ In this task, we consider the data set
 Provide quantitative reasoning to the questions below.
 \begin{enumerate}[a)]
     \item What is the training error of kNN regression with neighbourhood size $k = 1$? Give the result and an explanation of how you get to the result.
+    
+    The training error of kNN regression with neighbourhood size $k = 1$ is $0$. In case of $k = 0$, the formula of kNN regression becomes:
+    \begin{equation*}
+        f(x) = \frac{1}{1} \cdot \sum_{x_{i} \in N_{1}(x)} y_{i} = \sum_{x_{i} \in N_{1}(x)} y_{i}
+    \end{equation*}
+    where $N_{1}(x)$ is the nearest neighbour of the point $x$. In this case the nearest neighbour of the point $x$ is the point itself, so the result of the predictor will be the output of the input data. So, the formula of kNN regression will be:
+    \begin{equation*}
+        f(x) = y
+    \end{equation*}
+    
+    By substituting this on the training error formula we will have:
+    \begin{equation*}
+        TE(f, \mathcal{T}) = \frac{1}{N} \cdot \sum_{i = 1}^{N}L(y_{i}, f(x_{i})) = \frac{1}{9} \cdot \sum_{i = 1}^{9} (y_{i} -y_{i})^{2} = 0
+    \end{equation*}
+    
+    
     \item What is the training error of linear regression with an output dimension of $K = 1$ for $N = 2$ distinct training samples? Give the result and an explanation of how you get to the result.
+    
+    The training error of linear regression with an output dimension of $K = 1$ for $N = 2$ distinct training samples is $0$, because there exists a line which connects $2$ different points. Let's take a set of $2$ points $\{(x_{1}, y_{1}), (x_{2}, y_{2})\}$ and try to find the vector of coefficients by the least squares formula:
+    
+    \begin{equation*}
+         \beta = (\mathcal{X}^{T} \cdot X)^{-1} \cdot X^{T} \cdot y
+    \end{equation*}
+    
+    where
+    
+    \begin{equation*}
+        \mathcal{X} = \begin{pmatrix}1 & x_{1} \\ 1 & x_{2} \end{pmatrix} \hspace{1cm}
+        \mathcal{X}^{T} = \begin{pmatrix}1 & 1 \\ x_{1} & x_{2} \end{pmatrix} \hspace{1cm}
+        y = \begin{pmatrix} y_{1} \\ y_{2} \end{pmatrix}
+    \end{equation*}
+    
+    By substituting in the formula we get:
+    
+    \begin{equation*}
+        \beta = \begin{pmatrix}2 & x_{1} + x_{2} \\ x_{1} + X_{2} & x_{1}^{2} + x_{2}^{2} \end{pmatrix}^{-1} \cdot \begin{pmatrix}y_{1} + y_{2} \\ y_{1} \cdot x_{1} + y_{2} \cdot x_{2} \end{pmatrix}
+    \end{equation*}
+    
+    Since we have only $2$ data points $\mathcal{X}^{T} \cdot \mathcal{X}$ will always produce a $2x2$ matrix and its inverse can easily be found
+    
+    \begin{equation*}
+        \beta = \frac{1}{(x_{1} - x_{2})^{2}} \cdot \begin{pmatrix}x_{1}^{2} + x_{2}^{2} & - x_{1} - x_{2} \\ - x_{1} - X_{2} & 2 \end{pmatrix} \cdot \begin{pmatrix}y_{1} + y_{2} \\ y_{1} \cdot x_{1} + y_{2} \cdot x_{2} \end{pmatrix}
+    \end{equation*}
+    
+    \begin{equation*}
+        \beta = \frac{1}{(x_{1} - x_{2})^{2}} \cdot \begin{pmatrix}(y_{2} \cdot x_{1} - y_{1} \cdot x_{2}) \cdot (x_{1} - x_{2}) \\ (y_{1} - y_{2}) \cdot (x_{1} - x_{2}) \end{pmatrix}
+    \end{equation*}
+    
+    \begin{equation*}
+        \beta = \begin{pmatrix}\frac{y_{2} \cdot x_{1} - y_{1} \cdot x_{2}}{x_{1} - x_{2}} \\[1em] \frac{y_{1} - y_{2}}{x_{1} - x_{2}} \end{pmatrix}
+    \end{equation*}
+    
+    By inserting each input data point in the formula:
+    \begin{equation*}
+        f(x) = \frac{y_{2} \cdot x_{1} - y_{1} \cdot x_{2}}{x_{1} - x_{2}} + \frac{y_{1} - y_{2}}{x_{1} - x_{2}} \cdot x
+    \end{equation*}
+    
+    we get the same output as the initial data point. So, the training error formula becomes:
+    \begin{equation*}
+        TE(f, \mathcal{T}) = \frac{1}{N} \cdot \sum_{i = 1}^{N}L(y_{i}, f(x_{i})) = \frac{1}{2} \cdot \sum_{i = 1}^{2} (y_{i} -y_{i})^{2} = 0
+    \end{equation*}
+    
 \end{enumerate}    
 \end{homeworkProblem}
 \begin{programmingProblem}
 In this programming exercise, you will implement the validation set approach and $\mathcal{K}$-fold cross validation, while recalling that leave-one-out cross validation is $\mathcal{K}$-fold cross validation for $\mathcal{K} = N$, if $N$ is the number of training samples.\\
-Implement the study carried out in Example 6.3 from the lecture notes. Note that due to randomization, you might get other results that the ones shown in the example.\\
-
-The implementation of the cross validation approaches and Example 6.3 can be found in the file\\ \texttt{programming\_exercises.ipynb}. There are two classes, \texttt{KFold} and \texttt{LeaveOneOut} that implement the two respective approaches. A function, \texttt{train\_test\_split}, is used for creating the train and test splits used for validation set approach.
-
-The behavior of EGE in the output graph follows the same as the one provided in Example 6.3.
+Implement the study carried out in Example 6.3 from the lecture notes. Note that due to randomization, you might get other results that the ones shown in the example.
 \end{programmingProblem}
 
 \end{document}
