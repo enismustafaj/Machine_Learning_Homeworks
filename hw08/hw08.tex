@@ -186,7 +186,22 @@
 \pagebreak
 \begin{homeworkProblem}
 In this exercise, we repeat the general idea of the bias-variance trade-off for growing model complexity. To this end, you are asked to provide one plot that gives curves for the irreducible error, the bias, the variance, and the total (expected) generalization error for growing model complexity. \textit{(You might have seen such a plot in the lecture material.)} In addition, comment in your own words the "behavior" of the four different curves. Again, in your own words, explain, in connection to these curves, the idea of the bias-variance trade-off.
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{bias_variance_plot.png}
+\end{center}
+
+In the plot above, we can see the relationship between (squared) bias, variance, irreducible error and total (expected) generalization error.
+\begin{itemize}
+    \item The irreducible error is constant, independent of the model complexity, due to random noise. It is inherent to the collected data. The irreducible error can represent noise coming from collection of data, from the non-deterministic behavior of the phenomenon being modelled, and generally, any type of noise that cannot be easily defined.
+    \item The bias error arises from erroneous assumptions in the learning algorithm of the model. It represents the difference between the average of the predicted value over different realizations of training data and the true value. A model with high bias oversimplifies the underlying model from which the data has been generated from and it misses to predict complex and relevant relations between the input and output. This is known as \textit{underfitting}. The bias error curve typically has a high value for low model complexity and low value for high model complexity. This arises from the fact that with increased model complexity, the model is able to make more assumptions about the data and to capture the complex relations in the data.
+    \item The variance error arises from sensitivity to small fluctuations in the training set. It represents the mean squared deviation of the predicted value from its expected value over different realizations of training data. A model with high variance fits to the training data quite well, but it suffers in other cases due to its inability to generalize beyond the training data. This is known as \textit{overfitting}. The variance curve typically has a low value for low model complexity and high value for high model complexity. This arises from the fact that with increased model complexity, the model starts to fit the training data too well with the aim to minimize the training error. As a result, the model will show different performance with similar datasets.
+    \item The total (expected) generalization error is the sum of the irreducible error, the bias error and the variance error. Therefore its behavior depends on the behavior of the other curves.
+\end{itemize}
+
+The bias-variance trade-off is based on the choice of increasing or decreasing the model complexity to lower bias (increase variance) or lower variance (increase bias) with the aim to reduce the total (expected) generalization error. The model should accurately capture the underlying model in its training data while generalizing well to data that it has not seen before. It is typically impossible to do both simultaneously. Models with high bias produce simpler models that may underfit the data. On the other side, models with high-variance may overfit the data and perform poorly in different scenarios. Therefore, the trade-off lies in adjusting the model used with the aim to reduce both errors theoretically.
 \end{homeworkProblem}
+\pagebreak
 \begin{homeworkProblem}
 Recall from the lecture that the general bias-variance decomposition is given by
 \begin{equation*}
@@ -196,7 +211,7 @@ Recall from the lecture that the general bias-variance decomposition is given by
 While in the lecture notes, we discuss this decomposition more concretely for kNN regression, we do not discuss it for linear regression by least squares. Since deriving the resulting decomposition for linear regression by least squares is a bit involved, we will not do this here. Instead, we want to compute the bias and variance term for concretely given data and the linear model trained via the least squares estimator.
 
 To achieve this, we first assume to have $f_{exact}(x) = x^{2}$. Moreover, we consider the four samples $\mathcal{T}_{1} = \{ x_{i}^{(1)}, y_{i}^{(1)} \}_{i = 1}^{3}$, $\mathcal{T}_{2} = \{ x_{i}^{(2)}, y_{i}^{(2)} \}_{i = 1}^{3}$, $\mathcal{T}_{3} = \{ x_{i}^{(3)}, y_{i}^{(3)} \}_{i = 1}^{3}$, $\mathcal{T}_{4} = \{ x_{i}^{(4)}, y_{i}^{(4)} \}_{i = 1}^{3}$ from $T$ with $N = 3$ training samples. These are given as follows
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -223,7 +238,7 @@ Finally we choose $x_{0} = 0$.
     
     After the calculations, the output samples will be:
     
-    \begin{table}[h!]
+    \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|c|c|c|}
             \hline
@@ -348,8 +363,16 @@ Finally we choose $x_{0} = 0$.
 In this programming exercise, we further study Example 7.2 from the lecture notes with its associated implementation. If we more carefully read the example, we observe that in the process of the evaluation of the different error contributions, we build $N_{T} = 100$ different kNN regression predictors for $k = 1, \ldots, 20$. Note however, that these predictors are only built from the training data $\{ (x_{i}, f_{exact}(x_{i}) \}_{i = 1}^{N}$ and not from $\{ (x_{i}, f_{exact}(x_{i}) + \varepsilon_{i}) \}_{i = 1}^{N}$.
 \begin{enumerate}[a)]
     \item Start by extending the existing implementation such that you also build all these predictors for the training data with the additional noise term.
+    
+    The implementation has been extended and can be found in the file \texttt{programming\_exercises.ipynb}.
     \item Now, fix $k = 3$ and add a plot that contains the evaluation of all these predictors (with included noise term). Thus you obtain a total of $N_{T} = 100$ different curves. Try to use some appropriate coloring and transparency to make them properly visible.\\
     The plot that you will then have created is a visualization of the variance of the predictor.
+    
+    \begin{center}
+    \includegraphics[width=0.9\textwidth]{knn_model_variance_fixed_k.png}
+    \end{center}
+    
+    The code for generating this plot can be found in the file \texttt{programming\_exercises.ipynb}.
 \end{enumerate}
 \end{programmingProblem}
 
