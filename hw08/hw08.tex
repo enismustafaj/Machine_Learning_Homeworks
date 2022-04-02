@@ -220,12 +220,112 @@ To achieve this, we first assume to have $f_{exact}(x) = x^{2}$. Moreover, we co
 Finally we choose $x_{0} = 0$.
 \begin{enumerate}[a)]
     \item Compute the output samples of the given training sets, i.e. fill in the remaining cells in the above table.
+    
+    After the calculations, the output samples will be:
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            $t$ & $i$ & $x_{i}^{(t)}$ & $\varepsilon_{i}^{(t)}$ & $y_{i}^{(t)} = f_{
+            exact}(x_{i}^{(t)}) + \varepsilon_{i}^{(t)}$ \\ \hline \hline
+            1 & 1 & -1.0 & -0.3 & 0.7 \\
+            1 & 2 & -1.5 & 0.2 & 2.45\\
+            1 & 3 & 0.5 & 0.1 & 0.35\\ \hline
+            2 & 1 & -0.5 & 0.0 & 0.25\\
+            2 & 2 & 1.5 & -0.2 & 2.05\\
+            2 & 3 & -1.5 & 0.3 & 2.55\\ \hline
+            3 & 1 & 1.5 & -0.1 & 2.15\\
+            3 & 2 & 2.0 & 0.0 & 4\\
+            3 & 3 & -0.5 & 0.1 & 0.35\\ \hline
+            4 & 1 & 1.0 & -0.2 & 0.8\\
+            4 & 2 & -2.0 & 0.1 & 4.1\\
+            4 & 3 & 1.5 & 0.3 & 2.55\\ \hline
+        \end{tabular}
+    \end{table}
+    
+    \pagebreak
+    
+    
     \item Now that you have all four training sets at hand, compute an estimator for the bias term. To this end, you first build for all four different training sets the linear model using linear regression by least squares, hence you obtain models $f_{\mathcal{T}_{1}}, f_{\mathcal{T}_{2}}, f_{\mathcal{T}_{3}}, f_{\mathcal{T}_{4}}$. You then need to estimate the expectation, recalling that for a random variable $Z$ an estimator for its mean is given by
     \begin{equation*}
         \text{E}(Z) \approx \bar{Z} = \frac{1}{M} \sum_{i = 1}^{M} z_{i}
     \end{equation*}
-    
+
     where the $z_{1}, \ldots, z_{M}$ are $M$ samples drawn from that random variable. \textit{Hint: Use a computer to find the necessary partial results.}
+    
+    The final training sets are:
+    \begin{equation*}
+        \mathcal{T}_{1} = \{(-1, 0.7), (-1.5, 2.45), (0.5, 0.35)\}
+    \end{equation*}
+    \begin{equation*}
+        \mathcal{T}_{2} = \{(-0.5, 0.25), (1.5, 2.05), (-1.5, 2.55)\}
+    \end{equation*}
+    \begin{equation*}
+        \mathcal{T}_{3} = \{(1.5, 2.15), (2, 4), (-0.5, 0.35)\}
+    \end{equation*}
+    \begin{equation*}
+        \mathcal{T}_{4} = \{(1, 0.8), (-2, 4.1), (1.5, 2.55)\}
+    \end{equation*}
+    
+    By using the least squares formula:
+    \begin{equation*}
+        \beta = (\mathcal{X}^{T} \cdot \mathcal{X})^{-1} \cdot \mathcal{X} \cdot y
+    \end{equation*}
+    
+    we calculate the coefficients vector of the model for each training set:
+    \begin{itemize}
+        \item $\mathcal{T}_{1}$:
+            \begin{equation*}
+                \beta = \Bigg(\begin{pmatrix} 1 & 1 & 1 \\ -1 & -1.5 & 0.5 \end{pmatrix} \cdot 
+                \begin{pmatrix}1 & -1 \\ 1 & -1.5 \\ 1 & 0.5 \end{pmatrix}\Bigg)^{-1} \cdot \begin{pmatrix} 1 & 1 & 1 \\ -1 & -1.5 & 0.5 \end{pmatrix} \cdot \begin{pmatrix}0.7 \\ 2.45 \\ 0.35 \end{pmatrix}
+            \end{equation*}
+            \begin{equation*}
+                \beta =  \begin{pmatrix}0.59230769 \\ -0.86153846\end{pmatrix}
+            \end{equation*}
+            The predictor for $\mathcal{T}_{1}$ is $f_{\mathcal{T}_{1}}(x) = 0.59230769 -0.86153846 \cdot x $ and the predicted value at $x_{0}$ is $f_{\mathcal{T}_{1}}(x_{0}) = 0.5923076923076922$
+            
+        \item $\mathcal{T}_{2}$:
+            \begin{equation*}
+                \beta = \Bigg(\begin{pmatrix} 1 & 1 & 1 \\ -0.5 & 1.5 & -1.5 \end{pmatrix} \cdot 
+                \begin{pmatrix}1 & -0.5 \\ 1 & 1.5 \\ 1 & -1.5 \end{pmatrix}\Bigg)^{-1} \cdot \begin{pmatrix} 1 & 1 & 1 \\ -0.5 & 1.5 & -1.5 \end{pmatrix} \cdot \begin{pmatrix}0.25 \\ 2.05 \\ 2.55 \end{pmatrix}
+            \end{equation*}
+            \begin{equation*}
+                \beta =  \begin{pmatrix}1.61428571 \\ -0.01428571\end{pmatrix}
+            \end{equation*}
+            The predictor for $\mathcal{T}_{2}$ is $f_{\mathcal{T}_{2}}(x) = 1.61428571 -0.01428571 \cdot x $ and the predicted value at $x_{0}$ is $f_{\mathcal{T}_{2}}(x_{0}) = 1.6142857142857139$
+            
+        \item $\mathcal{T}_{3}$:
+            \begin{equation*}
+                \beta = \Bigg(\begin{pmatrix} 1 & 1 & 1 \\ 1.5 & 2 & -0.5 \end{pmatrix} \cdot 
+                \begin{pmatrix}1 & 1.5 \\ 1 & 2 \\ 1 & -0.5 \end{pmatrix}\Bigg)^{-1} \cdot \begin{pmatrix} 1 & 1 & 1 \\ 1.5 & 2 & -0.5 \end{pmatrix} \cdot \begin{pmatrix}2.15 \\  4 \\ 0.35\end{pmatrix}
+            \end{equation*}
+            \begin{equation*}
+                \beta =  \begin{pmatrix}0.86666667 \\ 1.3\end{pmatrix}
+            \end{equation*}
+            The predictor for $\mathcal{T}_{3}$ is $f_{\mathcal{T}_{3}}(x) = 0.86666667 + 1.3 \cdot x $ and the predicted value at $x_{0}$ is $f_{\mathcal{T}_{3}}(x_{0}) = 0.8666666666666669$
+            
+        \item $\mathcal{T}_{4}$:
+            \begin{equation*}
+                \beta = \Bigg(\begin{pmatrix} 1 & 1 & 1 \\ 1 & -2 & 1.5 \end{pmatrix} \cdot 
+                \begin{pmatrix}1 & 1 \\ 1 & -2 \\ 1 & 1.5 \end{pmatrix}\Bigg)^{-1} \cdot \begin{pmatrix} 1 & 1 & 1 \\ 1 & -2 & 1.5 \end{pmatrix} \cdot \begin{pmatrix}0.8 \\ 4.1 \\ 2.55 \end{pmatrix}
+            \end{equation*}
+            \begin{equation*}
+                \beta =  \begin{pmatrix}2.59534884 \\ -0.67209302\end{pmatrix}
+            \end{equation*}
+            The predictor for $\mathcal{T}_{4}$ is $f_{\mathcal{T}_{4}}(x) = 2.59534884 -0.67209302 \cdot x $ and the predicted value at $x_{0}$ is $f_{\mathcal{T}_{4}}(x_{0}) = 2.595348837209302$
+    \end{itemize}
+    
+    By using the formula above, we calculate the expected value of $f_{T}(0)$:
+    \begin{equation*}
+        E_{T}[f_{T}(0)] \approx \frac{1}{4} \cdot \sum_{i=1}^{4}f_{\mathcal{T}_{i}}(0) = 1.4171522276173438
+    \end{equation*}
+    
+    Now we can calculate the bias:
+    
+    \begin{equation*}
+        bias =  \text{E}_{T}[f_{T}(\textbf{x}_{0})] - f_{exact}(\textbf{x}_{0}) = 1.4171522276173438
+    \end{equation*}
     \item Finally estimate the variance term. Here, it is useful to further observe that the variance term is indeed the variance of $f_{T}(\textbf{x}_{0})$ with respect to the random variable $T$, hence
     \begin{equation*}
         \text{E}_{T} \left [ (f_{T}(\textbf{x}_{0}) - \text{E}_{T}[f_{T}(\textbf{x}_{0})])^{2} \right ] = \text{Var}_{T}(f_{T}(\textbf{x}_{0}))
@@ -237,6 +337,11 @@ Finally we choose $x_{0} = 0$.
     \end{equation*}
     
     \textit{Hint: Use a computer to find the necessary partial results.}
+    
+    By using the formula above, we calculate the variance:
+    \begin{equation*}
+        \text{Var}_{T}(f_{T}(\textbf{x}_{0})) \approx \frac{1}{3} \cdot \sum_{i=1}^{4}(f_{\mathcal{T}_{i}}(0) - E_{T}[f_{T}(0)]) = 0.8034705742217966
+    \end{equation*}
 \end{enumerate}
 \end{homeworkProblem}
 \begin{programmingProblem}
