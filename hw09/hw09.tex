@@ -47,6 +47,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.96,0.96,0.96}
 
+
 \lstdefinestyle{python}{
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
@@ -58,14 +59,14 @@
     breaklines=true,
     captionpos=b,
     keepspaces=true,
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
- 
+
 \lstset{style=python}
 \lstset{language=Python}
 
@@ -86,7 +87,7 @@
 \setlength\parindent{0pt}
 
 \newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
-\newcommand{\hmwkDueDate}{Month d, Year}
+\newcommand{\hmwkDueDate}{April 19, 2022}
 \newcommand{\hmwkClass}{Machine Learning}
 \newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
 \newcommand{\groupName}{\textbf{Group HB}}
@@ -99,7 +100,7 @@
 %
 
 \newcommand{\enterProblemHeader}[1]{
-	\nobreak{}
+    \nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
@@ -132,6 +133,7 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+
 \newcounter{programmingPartCounter}
 \newcounter{programmingProblemCounter}
 
@@ -160,7 +162,7 @@
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at XX:XX}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00}\\
     \vspace{3in}
 }
 
@@ -176,37 +178,54 @@
 \newcommand{\solution}{\textbf{\large Solution}}
 \newcommand{\comment}[1]{} % Multi-line comment
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
 \maketitle
 \pagebreak
 \begin{homeworkProblem}
+We would like to solve a simple classification problem using paper and pencil. To this end, you are given the training data
+\begin{equation*}
+    \mathcal{T} = \{ (0.3, 1), (1.8, 1), (1.5, 1), (4.8, 2), (2.6, 2) \}
+\end{equation*}
 
-
-\begin{lstlisting}
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-def mandelbrot(h, w, maxit=20, r=2):
-    """Returns an image of the Mandelbrot fractal of size (h,w)."""
-    x = np.linspace(-2.5, 1.5, 4*h+1)
-    y = np.linspace(-1.5, 1.5, 3*w+1)
-    A, B = np.meshgrid(x, y)
-    C = A + B*1j
-    z = np.zeros_like(C)
-    divtime = maxit + np.zeros(z.shape, dtype=int)
-
-    for i in range(maxit):
-        z = z**2 + C
-        diverge = abs(z) > r                    # who is diverging
-        div_now = diverge & (divtime == maxit)  # who is diverging now
-        divtime[div_now] = i                    # note when
-        z[diverge] = r                          # avoid diverging too much
-
-    return divtime
-plt.imshow(mandelbrot(400, 400))
-\end{lstlisting}
-
+The objective is to predict the class labels for the two evaluation points $x_{1} = 2.4$ and $x_{2} = 6.2$. Use linear regression on the indicator matrix to build the necessary predictor and evaluate it at $x_{1}$ and $x_{2}$. In addition, evaluate the \textit{training error} using the 0-1 loss.
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+We again start from the training data set
+\begin{equation*}
+    \mathcal{T}_{train} = \{ (-2.1, 1), (-0.9, 1), (0.6, 2), (1.5, 2), (2.7, 2) \}
+\end{equation*}
+
+for a paper and pencil classification task. In addition, you are given the validation set
+\begin{equation*}
+    \mathcal{T}_{val} = \{ (-1.2, 1), (0.5, 1), (1.4, 2) \}
+\end{equation*}
+\begin{enumerate}[a)]
+    \item Use linear discriminant analysis to build a classifier based on the training data.
+    \item Evaluate the generalization error for the just constructed predictor using the 0-1 loss and the validation set approach.
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Prove Lemma 8.2 from the lecture.\\
+
+\textbf{Lemma 8.2} - With the setting from Theorem 8.4, the gradient of the functional $J(\mathcal{B})$ with respect to a fixed class label $g$, which we call "$\nabla_{g}$" is given by
+
+\begin{equation*}
+    \nabla_{g} J(\mathcal{B}) = \begin{pmatrix}\frac{\partial}{\partial \beta_{0}^{(g)}} J(\mathcal{B}) \\ \vdots \\ \frac{\partial}{\partial \beta_{D}^{(g)}} J(\mathcal{B}) \end{pmatrix}  = \frac{1}{N} \sum_{i = 1}^{N} (p_{\mathcal{B}} (g | \boldsymbol {x}_{i}) - p(g | \boldsymbol {x}_{i})) \begin{pmatrix} 1 \\ \boldsymbol x_{i} \end{pmatrix}
+\end{equation*}
+
+Based on the setting of Theorem 8.4 and indirectly Method 12, the 
+\end{homeworkProblem}
+
+\begin{programmingProblem}
+\begin{enumerate}[a)]
+    \item Start from Example 8.1 from the lecture notes for which you have the Python source code available as Jupyter notebook. Ignore kNN classification and linear regression on indicator matrix and (only) re-implement the linear discriminant analysis by yourself. Verify the correctness of your implementation by cross-checking it with Example 8.1.
+    \item Now, we would like to compare the performance of the just implemented linear discriminant analysis to the performance of kNN classification (based e.g. on Scikit-learn) on SPAM data. Use as data set the \href{https://archive.ics.uci.edu/ml/datasets/spambase}{Spambase Data Set} from the UCI Machine Learning Repository. To carry out the comparison, implement the validation set approach with the 0-1 loss. Randomly split the data set into $N_{train} = 1000$ training samples and $N_{val} = 100$ validation samples and use the same split to evaluate the generalization error for LDA and kNN (with $k = 3$) classification.
+\end{enumerate}
+\end{programmingProblem}
+
 \end{document}
