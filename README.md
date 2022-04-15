@@ -10,7 +10,7 @@ Submissions
 - [X] HW04
 - [X] HW05
 - [X] HW06
-- [ ] HW07
-- [ ] HW08
-- [ ] HW09
+- [X] HW07
+- [X] HW08
+- [X] HW09
 - [ ] HW10
