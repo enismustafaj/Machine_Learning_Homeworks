@@ -190,7 +190,60 @@ We would like to solve a simple classification problem using paper and pencil. T
     \mathcal{T} = \{ (0.3, 1), (1.8, 1), (1.5, 1), (4.8, 2), (2.6, 2) \}
 \end{equation*}
 
-The objective is to predict the class labels for the two evaluation points $x_{1} = 2.4$ and $x_{2} = 6.2$. Use linear regression on the indicator matrix to build the necessary predictor and evaluate it at $x_{1}$ and $x_{2}$. In addition, evaluate the \textit{training error} using the 0-1 loss.
+The objective is to predict the class labels for the two evaluation points $x_{1} = 2.4$ and $x_{2} = 6.2$. Use linear regression on the indicator matrix to build the necessary predictor and evaluate it at $x_{1}$ and $x_{2}$. In addition, evaluate the \textit{training error} using the 0-1 loss. \\
+
+Firstly, we build the matrices $\mathcal{X}$ and $\mathcal{Y}$:
+
+\begin{equation*}
+    \mathcal{X} = \begin{pmatrix} 1 & 0.3 \\ 1 & 1.8 \\ 1 & 1.5 \\ 1 & 4.8 \\ 1 & 2.6 \end{pmatrix} \hspace{1cm}
+    \mathcal{Y} = \begin{pmatrix} 1 & 0 \\ 1 & 0 \\ 1 & 0 \\ 0 & 1 \\ 0 & 1 \end{pmatrix} \hspace{1cm}
+    \mathcal{X}^{T} = \begin{pmatrix} 1 & 1 & 1 & 1 & 1 \\ 0.3 & 1.8 & 1.5 & 4.8  & 2.6 \end{pmatrix} 
+\end{equation*}
+
+By using the formula of the least squares, we have:
+
+\begin{equation*}
+    \beta = (\mathcal{X}^{T} \cdot \mathcal{X})^{-1} \cdot \mathcal{X}^{T} \cdot \mathcal{Y}
+\end{equation*}
+
+\begin{equation*}
+    \beta = \begin{pmatrix}5 & 11\\ 11 & 35.38\end{pmatrix}^{-1} \cdot \begin{pmatrix} 1 & 1 & 1 & 1 & 1 \\ 0.3 & 1.8 & 1.5 & 4.8  & 2.6 \end{pmatrix} \cdot \begin{pmatrix} 1 & 0 \\ 1 & 0 \\ 1 & 0 \\ 0 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix}  1.19033989 & -0.19033989 \\ -0.26833631 &  0.26833631\end{pmatrix}
+\end{equation*}
+
+Now, we find the class that the input data belongs to by choosing the largest output between the entries of the result vector:
+
+\begin{itemize}
+    \item $x_{1} = 2.4$
+        \begin{equation*}
+            y = \begin{pmatrix} 1 & x^{T} \end{pmatrix} \cdot \beta = \begin{pmatrix}1 & 2.4 \end{pmatrix} \cdot \begin{pmatrix}  1.19033989 & -0.19033989 \\ -0.26833631 &  0.26833631\end{pmatrix} = \begin{pmatrix}0.54633274 \\ 0.45366726\end{pmatrix} 
+        \end{equation*}
+        So, the input data belongs to the first class $(2.4, 1)$
+        
+    \item $x_{2} = 6.2$
+        \begin{equation*}
+            y = \begin{pmatrix} 1 & x^{T} \end{pmatrix} \cdot \beta = \begin{pmatrix}1 & 6.2 \end{pmatrix} \cdot \begin{pmatrix}  1.19033989 & -0.19033989 \\ -0.26833631 &  0.26833631\end{pmatrix} = \begin{pmatrix}-0.47334526 \\ 1.47334526\end{pmatrix} 
+        \end{equation*}
+        So, the input data belongs to the second class $(6.2, 2)$
+\end{itemize}
+
+Now, we calculate the training error by using the 0-1 loss, where 0-1 loss is given by:
+\begin{equation*}
+    L_{0-1}(g, g') =  \begin{cases} 
+      0 & g = g' \\
+      1 & g \neq g'  
+   \end{cases}
+\end{equation*}
+
+\begin{equation*}
+    TE = \sum_{i = 1}^{5}L_{0-1}(y_{1}, argmax((1, x^{T}) \cdot \beta))
+\end{equation*}
+
+\begin{equation*}
+    \begin{split}
+        TE = L_{0-1}(1, argmax\begin{pmatrix}1.109839 \\ -0.109839\end{pmatrix}) + L_{0-1}(1, argmax\begin{pmatrix}0.70733453 \\ 0.29266547\end{pmatrix}) + L_{0-1}(1, argmax\begin{pmatrix}0.78783542 \\ 0.21216458\end{pmatrix}) \\  + L_{0-1}(2, argmax\begin{pmatrix}-0.09767442 \\  1.09767442\end{pmatrix}) + L_{0-1}(2, argmax\begin{pmatrix}0.49266547 \\ 0.50733453\end{pmatrix}) = 0
+    \end{split}
+\end{equation*}
+
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
@@ -205,7 +258,45 @@ for a paper and pencil classification task. In addition, you are given the valid
 \end{equation*}
 \begin{enumerate}[a)]
     \item Use linear discriminant analysis to build a classifier based on the training data.
+        \begin{itemize}
+            \item Firstly, we find the number of members for each class: $N_{g}$ = \{2, 3\}.
+            \item Then we find the probability set for each of the classes: $p(g) = \{\frac{2}{5}, \frac{3}{5}\}$ = \{0.4, 0.6\}
+            \item We find the set of mean values of the input data for each class:
+            \begin{equation*}
+                \mu_{g} = \{\frac{-2.1 - 0.9}{2}, \frac{0.6 + 1.5 + 2.7}{3}\} = \{-1.5, 1.6\}
+            \end{equation*}
+            \item Now, we find the covariance matrix by the formula:
+            \begin{equation*}
+                \Sigma = \sum_{g = 1}^{r}\sum_{(x, g) \in \mathcal{T}}(x - \mu_{g}) \cdot (x - \mu_{g})^{T} / (N - r)
+            \end{equation*}
+            Since the input data is one dimensional, the covariance matrix will be one dimensional as well.
+            \begin{equation*}
+            \begin{split}
+                \Sigma = \frac{(-2.1 + 1.5)^{2}}{3} + \frac{(-0.9 + 1.5)^{2}}{3}   + \frac{(-2.1 - 0.6)^{2}}{3} + \\ \frac{(0.6 - 1.6)^{2}}{3}  +\frac{(1.5 - 1.6)^{2}}{3} + \frac{(2.7 - 1.6)^{2}}{3} = 0.98
+            \end{split}
+            \end{equation*}
+        \end{itemize}
+        
+        The produced classifier is expressed as:
+        \begin{equation*}
+            g = argmax \Bigg(\begin{pmatrix}-0.91629073 \\ -0.51082562\end{pmatrix} + x \cdot \frac{1}{0.98} \cdot \begin{pmatrix}0.4 \\ 0.6\end{pmatrix} - \frac{1}{2} \cdot \begin{pmatrix}0.4 & 0.6\end{pmatrix} \cdot \frac{1}{0.98} \cdot \begin{pmatrix}0.4 \\ 0.6\end{pmatrix}\Bigg) 
+        \end{equation*}
+        
+        
     \item Evaluate the generalization error for the just constructed predictor using the 0-1 loss and the validation set approach.
+    
+    We evaluate the resulting class for each input data in the evaluation set:
+    
+    \begin{itemize}
+        \item $x_{1}$ = -1.5, 
+            $g = argmax\begin{pmatrix}-0.22751522 \\ -3.77613175\end{pmatrix} = 1$
+        \item $x_{2}$ = 0.5, 
+            $g = argmax\begin{pmatrix}-2.82955604 \\ -1.00062154\end{pmatrix} = 2$
+        \item $x_{3}$ = 1.4, 
+            $g = argmax\begin{pmatrix}-4.20710706 \\ 0.46876621\end{pmatrix} = 1$
+    \end{itemize}
+    
+    From the results above, we see that the class predicted for the second input data is different from the initial class. Thus, the 0-1 loss will be $1$ the generalization error is: $GE = 1$
 \end{enumerate}
 \end{homeworkProblem}
 
