@@ -218,13 +218,146 @@ Prove Lemma 8.2 from the lecture.\\
     \nabla_{g} J(\mathcal{B}) = \begin{pmatrix}\frac{\partial}{\partial \beta_{0}^{(g)}} J(\mathcal{B}) \\ \vdots \\ \frac{\partial}{\partial \beta_{D}^{(g)}} J(\mathcal{B}) \end{pmatrix}  = \frac{1}{N} \sum_{i = 1}^{N} (p_{\mathcal{B}} (g | \boldsymbol {x}_{i}) - p(g | \boldsymbol {x}_{i})) \begin{pmatrix} 1 \\ \boldsymbol x_{i} \end{pmatrix}
 \end{equation*}
 
-Based on the setting of Theorem 8.4 and indirectly Method 12, the 
+Based on the setting of Theorem 8.4 and indirectly Method 12, the following statements are known
+
+\begin{equation*}
+    s_{g}(\boldsymbol x) = \beta_{g}^{(g)} + \sum_{i = 1}^{D} \beta_{i}^{(g)} x_{i} \quad \quad \text{for } g = 1, \ldots, r
+\end{equation*}
+\begin{equation*}
+    p_{\mathcal{B}}(g | \boldsymbol x) \approx \frac{\text{exp}(s_{g}(\boldsymbol x))}{\sum_{h = 1}^{r} \text{exp}(s_{h}(\boldsymbol x))}\quad \quad 
+    \text{for } g = 1, \ldots, r
+\end{equation*}
 \end{homeworkProblem}
 
+We start from the result of Theorem 8.4, and the goal is to minimize the cost functional with respect to a given class $g$. This minimization can be found by calculating the gradient and equating it to 0. Since the solution is not dependent on any scaling, we are free to add any scaling.
+
+Therefore, the cost functional that we are minimizing is:
+\begin{equation*}
+    \begin{split}
+        \frac{1}{N} J(\mathcal{B}) & = - \frac{1}{N} \sum_{i = 1}^{N} \left [ \left ( \sum_{g = 1}^{r} p(g | \boldsymbol x_{i}) s_{g}(\boldsymbol x_{i}) \right ) - \text{log} {\left ( \sum_{h = 1}^{r} \text{exp}(s_{h}(\boldsymbol x_{i}) \right )} \right ] \\
+        & = - \frac{1}{N} \sum_{i = 1}^{N} \left ( p(1 | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ] + \ldots + p(r | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ] \right ) \\
+        & \quad \quad \quad \quad \quad \quad \quad - \text{log} {\left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )}
+    \end{split}
+\end{equation*}
+
+The gradient with respect to the coefficients $\mathcal{B}$, given a fixed class $g$, can be calculated as:
+\begin{equation*}
+    \nabla_{g} \frac{1}{N} J(\mathcal{B}) = \frac{1}{N} \begin{pmatrix}\frac{\partial}{\partial \beta_{0}^{(g)}} J(\mathcal{B}) \\ \vdots \\ \frac{\partial}{\partial \beta_{D}^{(g)}} J(\mathcal{B}) \end{pmatrix}
+\end{equation*}
+
+\begin{equation*}
+    \begin{split}
+        \frac{\partial}{\partial \beta_{0}^{(g)}} \frac{1}{N} J(\mathcal{B}) & = - \frac{\partial}{\partial \beta_{0}^{(g)}} \frac{1}{N} \sum_{i = 1}^{N} \left ( p(1 | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ] + \ldots + p(r | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ] \right ) \\
+        & \quad \quad \quad \quad \quad \quad \quad \quad \quad - \text{log} {\left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )} \\
+        & \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \vdots \\
+        \frac{\partial}{\partial \beta_{D}^{(g)}} \frac{1}{N} J(\mathcal{B}) & = - \frac{\partial}{\partial \beta_{D}^{(g)}} \frac{1}{N} \sum_{i = 1}^{N} \left ( p(1 | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ] + \ldots + p(r | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ] \right ) \\
+        & \quad \quad \quad \quad \quad \quad \quad \quad \quad - \text{log} {\left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )}
+    \end{split}
+\end{equation*}
+
+Using the additive property, in this case, partial derivative of a sum is the sum of the partial derivatives. To avoid performing the following steps manually, we are taking the partial derivative of one of the coefficients, $\beta_{k}$, where $k \in \{0, \ldots, D\}$ to represent what we are doing for each partial derivative of the gradient.
+
+\begin{equation*}
+    \begin{split}
+        \frac{\partial}{\partial \beta_{k}^{(g)}} \frac{1}{N} J(\mathcal{B}) & = - \frac{\partial}{\partial \beta_{k}^{(g)}} \frac{1}{N} \sum_{i = 1}^{N} \left ( p(1 | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ] + \ldots + p(r | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ] \right ) \\
+        & \quad \quad \quad \quad \quad \quad \quad \quad \quad - \text{log}{\left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )} \\
+        & = - \frac{1}{N} \sum_{i = 1}^{N} \frac{\partial}{\partial \beta_{k}^{(g)}} \left ( p(1 | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ] + \ldots + p(r | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ] \right ) \\ 
+        & \quad \quad \quad \quad \quad \quad \quad \quad - \frac{\partial}{\partial \beta_{k}^{(g)}} \text{log}{\left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )}
+    \end{split}
+\end{equation*}
+
+Considering only the first term of the sum:
+\begin{equation*}
+    \frac{\partial}{\partial \beta_{k}^{(g)}} \left ( p(1 | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ] + \ldots + p(r | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ] \right )
+\end{equation*}
+
+Taking the partial derivative only given the class $g$ will leave only one of the product terms in the sum.
+\begin{equation*}
+    \frac{\partial}{\partial \beta_{k}^{(g)}} \left ( p(g | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ] \right )
+\end{equation*}
+
+Continuing the derivation with respect to the coefficient $\beta_{k}$:
+\begin{equation*}
+    \frac{\partial}{\partial \beta_{k}^{(g)}} \left ( p(g | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ] \right ) = \begin{cases} p(g | \boldsymbol x_{i}) \cdot 1 & \text{if } k = 0 \\ p(g | \boldsymbol x_{i}) \cdot x_{ik} & \text{otherwise} \end{cases} \quad \text{for } k \in \{0, \ldots, D \}
+\end{equation*}
+
+Condensing the result to find the gradient of only the first term of them sum given the class $g$ with respect to the set of coefficients:
+\begin{equation*}
+    \begin{pmatrix}
+    \frac{\partial}{\partial \beta_{0}^{(g)}} \left ( p(g | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ] \right ) \\
+    \vdots \\
+    \frac{\partial}{\partial \beta_{D}^{(g)}} \left ( p(g | \boldsymbol x_{i}) \cdot \left [ \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ] \right )
+    \end{pmatrix} = \begin{pmatrix}
+    p(g | \boldsymbol x_{i}) \\ \vdots \\ p(g | \boldsymbol x_{i}) \cdot x_{iD}
+    \end{pmatrix} = p(g | \boldsymbol x_{i}) \cdot \begin{pmatrix}
+    1 \\ \boldsymbol x_{i}
+    \end{pmatrix}
+\end{equation*}
+
+Considering only the second term of the sum:
+\begin{equation*}
+    \frac{\partial}{\partial \beta_{k}^{(g)}} \text{log}{\left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )}
+\end{equation*}
+
+Letting $z$ be equal to the sum of exponentials inside of the logarithm, and continuing the derivation:
+\begin{equation*}
+    \begin{split}
+        \frac{\partial}{\partial \beta_{k}^{(g)}} \text{log}{(z)} & = \frac{1}{z} \frac{\partial}{\partial \beta_{k}^{(g)}} \left ( \text{exp}\left ( \beta_{0}^{(1)} + \sum_{j = 1}^{D} \beta_{j}^{(1)} \boldsymbol x_{ij} \right ) + \ldots + \text{exp}\left ( \beta_{0}^{(r)} + \sum_{j = 1}^{D} \beta_{j}^{(r)} \boldsymbol x_{ij} \right ) \right )
+    \end{split}
+\end{equation*}
+
+Taking the partial derivative only given the class $g$ will leave only one exponential term in the sum.
+\begin{equation*}
+    \frac{1}{z} \frac{\partial}{\partial \beta_{k}^{(g)}} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right )
+\end{equation*}
+
+Continuing the derivation with respect to the coefficient $\beta_{k}$:
+\begin{equation*}
+    \frac{1}{z} \frac{\partial}{\partial \beta_{k}^{(g)}} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ) = \begin{cases} \frac{1}{z} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ) \cdot 1 & \text{if } k = 0 \\ \frac{1}{z} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ) \cdot x_{ik} & \text{otherwise} \end{cases} \quad \text{for } k \in \{0, \ldots, D \}
+\end{equation*}
+
+From the setting, we recall that:
+\begin{equation*}
+    p_{\mathcal{B}}(g | \boldsymbol x) \approx \frac{\text{exp}(s_{g}(\boldsymbol x))}{\sum_{h = 1}^{r} \text{exp}(s_{h}(\boldsymbol x))} = \frac{1}{z} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right )
+\end{equation*}
+
+Condensing the result to find the gradient of only the second term of them sum given the class $g$ with respect to the set of coefficients:
+\begin{equation*}
+    \begin{pmatrix}
+    \frac{\partial}{\partial \beta_{0}^{(g)}} \left ( \frac{1}{z} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ) \right ) \\
+    \vdots \\
+    \frac{\partial}{\partial \beta_{D}^{(g)}} \left ( \frac{1}{z} \text{ exp}\left ( \beta_{0}^{(g)} + \sum_{j = 1}^{D} \beta_{j}^{(g)} \boldsymbol x_{ij} \right ) \right )
+    \end{pmatrix} = \begin{pmatrix}
+    p_{\mathcal{B}}(g | \boldsymbol x_{i}) \\ \vdots \\ p_{\mathcal{B}}(g | \boldsymbol x_{i}) \cdot x_{iD}
+    \end{pmatrix} = p_{\mathcal{B}}(g | \boldsymbol x_{i}) \cdot \begin{pmatrix}
+    1 \\ \boldsymbol x_{i}
+    \end{pmatrix}
+\end{equation*}
+
+Combining both results:
+\begin{equation*}
+    \begin{split}
+        \nabla_{g} \frac{1}{N} J(\mathcal{B}) = \frac{1}{N} \begin{pmatrix}\frac{\partial}{\partial \beta_{0}^{(g)}} J(\mathcal{B}) \\ \vdots \\ \frac{\partial}{\partial \beta_{D}^{(g)}} J(\mathcal{B}) \end{pmatrix} & = \frac{1}{N} \begin{pmatrix} 
+        - \sum_{i = 1}^{N} p(g | \boldsymbol x_{i}) - p_{\mathcal{B}}(g | \boldsymbol x_{i}) \\
+        \vdots \\
+        - \sum_{i = 1}^{N} p(g | \boldsymbol x_{i}) \cdot x_{iD} - p_{\mathcal{B}}(g | \boldsymbol x_{i}) \cdot x_{iD}
+        \end{pmatrix} \\
+        & = - \frac{1}{N} \begin{pmatrix} 
+        \sum_{i = 1}^{N} (p(g | \boldsymbol x_{i}) - p_{\mathcal{B}}(g | \boldsymbol x_{i})) \cdot 1 \\
+        \vdots \\
+        \sum_{i = 1}^{N} (p(g | \boldsymbol x_{i}) - p_{\mathcal{B}}(g | \boldsymbol x_{i})) \cdot x_{iD}
+        \end{pmatrix} \\
+        & = \frac{1}{N} \sum_{i = 1}^{N} (p_{\mathcal{B}}(g | \boldsymbol x_{i}) - p(g | \boldsymbol x_{i})) \begin{pmatrix} 1 \\ \boldsymbol x_{i} \end{pmatrix}
+    \end{split}
+\end{equation*}
 \begin{programmingProblem}
 \begin{enumerate}[a)]
     \item Start from Example 8.1 from the lecture notes for which you have the Python source code available as Jupyter notebook. Ignore kNN classification and linear regression on indicator matrix and (only) re-implement the linear discriminant analysis by yourself. Verify the correctness of your implementation by cross-checking it with Example 8.1.
+    
+    The implementation of linear discriminant analysis can be found in the file \texttt{programming\_exercises.ipynb}. After the implementation, the comparison is done and an accuracy of our implementation based on the results of Example 8.1 is given.
     \item Now, we would like to compare the performance of the just implemented linear discriminant analysis to the performance of kNN classification (based e.g. on Scikit-learn) on SPAM data. Use as data set the \href{https://archive.ics.uci.edu/ml/datasets/spambase}{Spambase Data Set} from the UCI Machine Learning Repository. To carry out the comparison, implement the validation set approach with the 0-1 loss. Randomly split the data set into $N_{train} = 1000$ training samples and $N_{val} = 100$ validation samples and use the same split to evaluate the generalization error for LDA and kNN (with $k = 3$) classification.
+    
+    The solution to this part of the exercise can be found in the file \texttt{programming\_exercises.ipynb}. The validation set approach is based on the split retrieved by \texttt{train\_test\_split} function. The generalization error based on the validation set approach is calculated using the function \texttt{zero\_one\_loss}, whose implementation is just a simple loop going over each pair of outputs, real and predicted, and summing up the cases when the predicted output is not the same as the test set one. In the end, the result is divided by the size of the test split.
 \end{enumerate}
 \end{programmingProblem}
 
