@@ -33,6 +33,14 @@
 \usepackage{fancyhdr}
 \usepackage{fancybox}
 
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{algpseudocode}
+
+
+
 \topmargin=-0.45in
 \evensidemargin=0in
 \oddsidemargin=0in
@@ -215,9 +223,43 @@ You are given the data set
 A well-known application of principle component analysis is lossy data compression. In this application, you are given a large data set $\{ \mathbf{x} \}_{i = 1}^{N}$ with $\mathbf{x}_{i} \in \mathbb{R}^{D}$ and reduce it to a data set $\{ \bar{\mathbf{x}} \}_{i = 1}^{N}$ with $\bar{\mathbf{x}}_{i} \in \mathbb{R}^{d}$ where $d < D$, while storing a matrix that allows to reconstruct an approximation to the $\mathbf{x}_{i}$ from the vectors $\bar{\mathbf{x}}_{i}$.
 
 Develop and give a compression and a decompression algorithm which carry out the above described data compression and decompression tasks by using principle component analysis. You can either try to develop the idea by yourself or do a research in the internet. In the latter case, please quote the source from which you took the information.
+
+The followings are the algorithms to compress and decompress a set of data $\{ \mathbf{x} \}_{i = 1}^{N}$:
+
+
+\begin{algorithm}[H]
+\caption{Data Compression}
+\begin{algorithmic} 
+\Procedure{Compress}{data, nr\_components}
+    \STATE $Mean \leftarrow mean(data)$
+    \STATE $Zero\_Centered \leftarrow data - Mean x$
+    \STATE $Cov\_Matrix \leftarrow (Zero\_Centered^{T} \cdot Zero\_Centered) / (length(data) - 1)$
+    \STATE $eig\_values, eig\_vectors \leftarrow eig(Cov\_Matrix)$
+    \STATE $selected\_components \leftarrow eig\_vectors[:, :nr\_components]$
+    \STATE $compressed\_data \leftarrow selected\_components^{T} \cdot data^{T}$
+    \RETURN $compressed\_data^{T}$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]
+\caption{Data Decompression}
+\begin{algorithmic} 
+\Procedure{Decompress}{compressed\_data, selected\_components}
+    \STATE $decompressed\_data \leftarrow compressed\_data \cdot selected\_components^{T}$
+    \RETURN $decompressed\_data$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
 \end{homeworkProblem}
+
 
 \begin{programmingProblem}
 In this task, you are supposed to apply your just developed data compression algorithm to the MNIST data set. To this end, consult again Example 9.4, which provides access to the hand-written digits for the value 8 in MNIST. Compress the images of these digits to a dimensionality of $d = 784, 512, 256, 128, 64, 32$, decompress them again, and plot the decompressed digits.
+
+The implementation of the above algorithms can be found in the file \texttt{programming\_exercises.ipynb}.
 \end{programmingProblem}
 \end{document}
