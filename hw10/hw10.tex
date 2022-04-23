@@ -47,6 +47,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.96,0.96,0.96}
 
+
 \lstdefinestyle{python}{
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
@@ -58,14 +59,14 @@
     breaklines=true,
     captionpos=b,
     keepspaces=true,
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
- 
+
 \lstset{style=python}
 \lstset{language=Python}
 
@@ -86,7 +87,7 @@
 \setlength\parindent{0pt}
 
 \newcommand{\hmwkTitle}{Assignment Sheet\ \#\hmwkNumber}
-\newcommand{\hmwkDueDate}{Month d, Year}
+\newcommand{\hmwkDueDate}{April 26, 2022}
 \newcommand{\hmwkClass}{Machine Learning}
 \newcommand{\hmwkAuthorName}{Henri Sota, Enis Mustafaj}
 \newcommand{\groupName}{\textbf{Group HB}}
@@ -99,7 +100,7 @@
 %
 
 \newcommand{\enterProblemHeader}[1]{
-	\nobreak{}
+    \nobreak{}
 }
 
 \newcommand{\exitProblemHeader}[1]{
@@ -132,6 +133,7 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+
 \newcounter{programmingPartCounter}
 \newcounter{programmingProblemCounter}
 
@@ -160,7 +162,7 @@
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at XX:XX}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00}\\
     \vspace{3in}
 }
 
@@ -176,37 +178,46 @@
 \newcommand{\solution}{\textbf{\large Solution}}
 \newcommand{\comment}[1]{} % Multi-line comment
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
 \maketitle
 \pagebreak
 \begin{homeworkProblem}
+In this task, you carry out $K$-means clustering with $K = 3$ by paper and pencil. To this end, you are given the following data
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c|c}
+    $i$ & $x_{i}$ & $C^{(0)}(i)$ \\ \hline
+    1 & $(15, 7)^{\top}$ & 2 \\
+    2 & $(0, -9)^{\top}$ & 1 \\
+    3 & $(-2, -5)^{\top}$ & 1 \\
+    4 & $(2, 3)^{\top}$ & 0 \\
+    5 & $(3, 7)^{\top}$ & 2 \\
+    6 & $(18, 12)^{\top}$ & 0
+    \end{tabular}
+\end{table}
 
-
-\begin{lstlisting}
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-def mandelbrot(h, w, maxit=20, r=2):
-    """Returns an image of the Mandelbrot fractal of size (h,w)."""
-    x = np.linspace(-2.5, 1.5, 4*h+1)
-    y = np.linspace(-1.5, 1.5, 3*w+1)
-    A, B = np.meshgrid(x, y)
-    C = A + B*1j
-    z = np.zeros_like(C)
-    divtime = maxit + np.zeros(z.shape, dtype=int)
-
-    for i in range(maxit):
-        z = z**2 + C
-        diverge = abs(z) > r                    # who is diverging
-        div_now = diverge & (divtime == maxit)  # who is diverging now
-        divtime[div_now] = i                    # note when
-        z[diverge] = r                          # avoid diverging too much
-
-    return divtime
-plt.imshow(mandelbrot(400, 400))
-\end{lstlisting}
-
+with its initial cluster assignment. Let the clustering algorithm "run" until it finalized its assignment. Finally, draw the just computed clusters in a two-dimensional scatter plot.
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+You are given the data set
+\begin{equation*}
+    \{ (3, 2)^{\top}, (-1, 0)^{\top}, (7, 1)^{\top} \}
+\end{equation*}
+
+\textit{Manually} compute the principle components of this data set by solving the associated eigenvalue problem.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+A well-known application of principle component analysis is lossy data compression. In this application, you are given a large data set $\{ \mathbf{x} \}_{i = 1}^{N}$ with $\mathbf{x}_{i} \in \mathbb{R}^{D}$ and reduce it to a data set $\{ \bar{\mathbf{x}} \}_{i = 1}^{N}$ with $\bar{\mathbf{x}}_{i} \in \mathbb{R}^{d}$ where $d < D$, while storing a matrix that allows to reconstruct an approximation to the $\mathbf{x}_{i}$ from the vectors $\bar{\mathbf{x}}_{i}$.
+
+Develop and give a compression and a decompression algorithm which carry out the above described data compression and decompression tasks by using principle component analysis. You can either try to develop the idea by yourself or do a research in the internet. In the latter case, please quote the source from which you took the information.
+\end{homeworkProblem}
+
+\begin{programmingProblem}
+In this task, you are supposed to apply your just developed data compression algorithm to the MNIST data set. To this end, consult again Example 9.4, which provides access to the hand-written digits for the value 8 in MNIST. Compress the images of these digits to a dimensionality of $d = 784, 512, 256, 128, 64, 32$, decompress them again, and plot the decompressed digits.
+\end{programmingProblem}
 \end{document}
