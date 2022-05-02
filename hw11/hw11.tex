@@ -197,6 +197,9 @@ In this paper \& pencil task, you compare the quadratic model based on the basis
     \item Compute the linear model using least squares for the given training data.
     \item Compute the quadratic model using least squares for the given training data.
     \item Draw (by hand) the linear and the quadratic model in a plot, together with the training samples.
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{p01.png}
+    \end{center}
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -207,13 +210,43 @@ You are given the training data
 \end{equation*}
 \begin{enumerate}[a)]
     \item Use the Gaussian kernel with kernel width $\sigma = 1$ and compute by hand the kernel-based model using least squares for the given training data.
-    \item Repeat the previous task, but this time you compute by hand the kernel-based model using least squares for the given training data.
+    \item Repeat the previous task, but this time you compute by hand the kernel-based model using ridge regression with regularization parameter $\lambda = 1$.
     \item Draw both above models including the training data in one plot.
 \end{enumerate}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
 Prove Lemma 10.2 from the lecture notes.
+
+Recalling Lemma 10.2:
+
+Let $\{ \boldsymbol x_{i} \}_{i = 1}^{N}$ be a set of points such that $\boldsymbol x_{i} \in \mathbb{R}^{D}$ and let $k: \mathbb{R}^{D} \times \mathbb{R}^{D} \to \mathbb{R}$ be a positive definite kernel. Then, the matrix
+\begin{equation*}
+    \mathcal{A} = \begin{pmatrix} k(\boldsymbol x_{1}, \boldsymbol x_{1}) & \ldots & k(\boldsymbol x_{1}, \boldsymbol x_{N}) \\
+    \vdots & \ddots & \vdots \\
+    k(\boldsymbol x_{N}, \boldsymbol x_{1}) & \ldots & k(\boldsymbol x_{N}, \boldsymbol x_{N}) \end{pmatrix}
+\end{equation*}
+
+is (symmetric) positive definite.\\
+
+A kernel is a symmetric function. Therefore, the matrix $\mathcal{A}$ is symmetric. The underlying properties of a symmetric matrix are that the eigenvalues are real and the eigenvectors are perpendicular to each other.\\
+
+To prove the positive definite property of the matrix $\mathcal{A}$, the quadratic form can be used. Quadratic form states that if for all $\boldsymbol x != 0$, the product $x^{T} \mathcal{A} x$ is greater than 0, then the matrix is positive definite.\\
+
+We choose to use the orthonormal basis, $\{e_{1}, \ldots, e_{n}\}$, of the eigenvectors corresponding to the eigenvalues, $\{\lambda_{1}, \ldots, \lambda_{n}\}$ of matrix $\mathcal{A}$. We can express any $x$ using the orthonormal basis, $\boldsymbol x = c_{1} e_{2} + \ldots + c_{n} e_{n}$.\\
+
+The quadratic form can then be expressed as:
+\begin{equation*}
+    \begin{split}
+        \boldsymbol x^{T} \mathcal{A} \boldsymbol x & = (c_{1} e_{1}^{T} + \ldots + c_{n} e_{n}^{T}) \mathcal{A} (c_{1} e_{1} + \ldots + c_{n} e_{n}) \\
+        & = (c_{1} e_{1}^{T} + \ldots + c_{n} e_{n}^{T}) (c_{1} \mathcal{A} e_{1} + \ldots + c_{n} \mathcal{A} e_{n}) \\
+        & = (c_{1} e_{1}^{T} + \ldots + c_{n} e_{n}^{T}) (c_{1} \lambda_{1} e_{1} + \ldots + c_{n} \lambda_{n} e_{n}) \\
+        & = c_{1} e_{1}^{T} \cdot c_{1} \lambda_{1} e_{1} + c_{1} e_{1}^{T} \cdot c_{2} \lambda_{2} e_{2} + \ldots c_{n}^{2} \cdot e_{n}^{T} \lambda_{n} e_{n} \\
+        & = c_{1}^{2} \lambda_{1} + 0 + \ldots + c_{n}^{2} \lambda_{n} \\
+        & = c_{1}^{2} \lambda_{1} + \ldots + c_{n}^{2} \lambda_{n}
+    \end{split}
+\end{equation*}
+
 \end{homeworkProblem}
 
 \begin{programmingProblem}
