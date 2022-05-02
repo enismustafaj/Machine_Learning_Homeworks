@@ -195,8 +195,67 @@ In this paper \& pencil task, you compare the quadratic model based on the basis
 \end{equation*}
 \begin{enumerate}[a)]
     \item Compute the linear model using least squares for the given training data.
+    
+    Firstly, we create the matrix $\mathcal{X}$:
+    
+    \begin{equation*}
+        \mathcal{X} = \begin{pmatrix}1 & -1 \\ 1 & 0 \\ 1 & 2 \end{pmatrix} \hspace{1cm}
+        \mathcal{X}^\top = \begin{pmatrix}1 & 1 & 1 \\ -1 & 0 & 2 \end{pmatrix} \hspace{1cm}
+        y = \begin{pmatrix}-1 \\ 4 \\ 2\end{pmatrix}
+    \end{equation*}
+
+    
+    By using the least squares, we compute the coefficients of the model:
+    \begin{equation*}
+        \alpha = (\mathcal{X}^{\top} \cdot \mathcal{X})^{-1} \cdot \mathcal{X}^\top \cdot y
+    \end{equation*}
+    
+    \begin{equation*}
+        \alpha = \Bigg(\begin{pmatrix}1 & 1 & 1 \\ -1 & 0 & 2 \end{pmatrix} \cdot \begin{pmatrix}1 & -1 \\ 1 & 0 \\ 1 & 2 \end{pmatrix}\Bigg)^{-1} \cdot \begin{pmatrix}1 & 1 & 1 \\ -1 & 0 & 2 \end{pmatrix} \cdot \begin{pmatrix}-1 \\ 4 \\ 2\end{pmatrix} = \begin{pmatrix} -1.4285714285714286 \\ 1.28571429 \end{pmatrix}
+    \end{equation*}
+    
+    So the derived model is:
+    \begin{equation*}
+        f_{\alpha}(\mathbf{X}) =  -1.4285714285714286 + 1.28571429 \cdot \mathbf{X}
+    \end{equation*}
     \item Compute the quadratic model using least squares for the given training data.
+    
+    Firstly, we create the matrix $\mathcal{X}$:
+    
+    \begin{equation*}
+        \mathcal{X} = \begin{pmatrix}1 & -1 & 1 \\ 1 & 0 & 0\\ 1 & 2 & 4\end{pmatrix} \hspace{1cm}
+        \mathcal{X}^\top = \begin{pmatrix}1 & 1 & 1 \\ -1 & 0 & 2\\ 1 & 0 & 4\end{pmatrix} \hspace{1cm}
+        y = \begin{pmatrix}-1 \\ 4 \\ 2\end{pmatrix}
+    \end{equation*}
+    
+    By using the least squares, we compute the coefficients of the model:
+    \begin{equation*}
+        \alpha = (\mathcal{X}^{\top} \cdot \mathcal{X})^{-1} \cdot \mathcal{X}^\top \cdot y
+    \end{equation*}
+    
+    \begin{equation*}
+        \alpha = \Bigg( \begin{pmatrix}1 & 1 & 1 \\ -1 & 0 & 2\\ 1 & 0 & 4\end{pmatrix} \cdot \begin{pmatrix}1 & -1 & 1 \\ 1 & 0 & 0\\ 1 & 2 & 4\end{pmatrix} \Bigg) \cdot \begin{pmatrix}1 & 1 & 1 \\ -1 & 0 & 2\\ 1 & 0 & 4\end{pmatrix} \cdot \begin{pmatrix}-1 \\ 4 \\ 2\end{pmatrix} = \begin{pmatrix} -4 \\ -1 \\  2 \end{pmatrix}
+    \end{equation*}
+    
+    So, the derived model is:
+    
+    \begin{equation*}
+          f_{\alpha}(\mathbf{X}) = -4 -\mathbf{X} + 2 \cdot \mathbf{X}^{2}
+    \end{equation*}
+    
+    \pagebreak
+    
     \item Draw (by hand) the linear and the quadratic model in a plot, together with the training samples.
+    
+    The graph of linear and quadratic model is represented as following:
+    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{p01.png}
+        \caption{}
+        \label{fig:my_label}
+    \end{figure}
+    \pagebreak
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -207,10 +266,67 @@ You are given the training data
 \end{equation*}
 \begin{enumerate}[a)]
     \item Use the Gaussian kernel with kernel width $\sigma = 1$ and compute by hand the kernel-based model using least squares for the given training data.
-    \item Repeat the previous task, but this time you compute by hand the kernel-based model using least squares for the given training data.
+    
+    Firstly, we calculate the Gaussian kernel for each of the input points:
+    
+    \begin{equation*}
+        k(-2, 0) = 0.0183156389 \hspace{2cm} k(-2, 1) = 0.000123409804 \hspace{2cm} k(0, 1) = 0.367879441
+    \end{equation*}
+    
+    The Gaussian kernel of a point with itself is $1$ since the distance between a point and itself is $0$. The Gaussian kernel is also symmetric, so the kernel of the opposite points related to above ones will be the same. The Kernel matrix is as following:
+    
+    \begin{equation*}
+        \mathcal{A} = \begin{pmatrix}1 &  0.0183156389 & 0.000123409804 \\ 0.0183156389 & 1 & 0.367879441 \\  0.000123409804 & 0.367879441 & 1\end{pmatrix}
+    \end{equation*}
+    
+    Now we calculate the coefficient vector by using the formula:
+    
+    \begin{equation*}
+        \alpha = \mathcal{A}^{-1} \cdot y
+    \end{equation*}
+    
+    \begin{equation*}
+        \alpha = \begin{pmatrix}1 &  0.0183156389 & 0.000123409804 \\ 0.0183156389 & 1 & 0.367879441 \\  0.000123409804 & 0.367879441 & 1\end{pmatrix}^{-1} \cdot \begin{pmatrix} 2 \\ 0 \\ 2 \end{pmatrix} = \begin{pmatrix}2.01607799 \\ -0.89351756 \\ 2.32845794 \end{pmatrix}
+    \end{equation*}
+    
+    The derived model is:
+    \begin{equation*}
+        f_{\alpha}(\mathbf{X}) = 2.01607799 \cdot k(X, -2) - 0.89351756 \cdot k(X, 0) + 2.32845794 \cdot k(X, 1)
+    \end{equation*}
+    \item Repeat the previous task, but this time you compute by hand the kernel-based model using ridge regression with regularization parameter $\lambda = 1$.
+    
+    We calculate the coefficient vector by the formula:
+    
+    \begin{equation*}
+        \alpha = (\mathcal{A} + \lambda \cdot \mathcal{I})^{-1} \cdot y
+    \end{equation*}
+    
+    \begin{equation*}
+        \alpha = \Bigg(\begin{pmatrix}1 &  0.0183156389 & 0.000123409804 \\ 0.0183156389 & 1 & 0.367879441 \\  0.000123409804 & 0.367879441 & 1\end{pmatrix} + \begin{pmatrix}1 & 0 & 0 \\ 0 & 1 & 0\\ 0 & 0 & 1 \end{pmatrix}\Bigg)^{-1} \cdot \begin{pmatrix} 2 \\ 0 \\ 2\end{pmatrix} = \begin{pmatrix} 1.00176635 \\ -0.19986453 \\  1.03670121 \end{pmatrix}
+    \end{equation*}
+    
+    The derived model is:
+    
+    \begin{equation*}
+        f_{\alpha}(\mathbf{X}) = 1.00176635 \cdot k(X, -1) - 0.19986453 \cdot k(X, 0) + 1.03670121 \cdot k(X, 1)
+    \end{equation*}
+
+    \pagebreak
+    
     \item Draw both above models including the training data in one plot.
+    
+    The graphs of both models are represented as following:
+    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{p02.png}
+        \caption{}
+        \label{fig:my_label}
+    \end{figure}
 \end{enumerate}
 \end{homeworkProblem}
+
+\pagebreak
 
 \begin{homeworkProblem}
 Prove Lemma 10.2 from the lecture notes.
