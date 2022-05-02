@@ -252,11 +252,7 @@ In this paper \& pencil task, you compare the quadratic model based on the basis
     \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{p01.png}
-        \caption{}
-        \label{fig:my_label}
     \end{figure}
-
-
 \end{enumerate}
 \end{homeworkProblem}
     \pagebreak
@@ -268,15 +264,14 @@ You are given the training data
 \end{equation*}
 \begin{enumerate}[a)]
     \item Use the Gaussian kernel with kernel width $\sigma = 1$ and compute by hand the kernel-based model using least squares for the given training data.
-<<<<<<< HEAD
     
     Firstly, we calculate the Gaussian kernel for each of the input points:
     
     \begin{equation*}
-        k(-2, 0) = 0.0183156389 \hspace{2cm} k(-2, 1) = 0.000123409804 \hspace{2cm} k(0, 1) = 0.367879441
+        k(-2, 0) = 0.0183156389 \quad \quad k(-2, 1) = 0.000123409804 \quad \quad k(0, 1) = 0.367879441
     \end{equation*}
     
-    The Gaussian kernel of a point with itself is $1$ since the distance between a point and itself is $0$. The Gaussian kernel is also symmetric, so the kernel of the opposite points related to above ones will be the same. The Kernel matrix is as following:
+    The Gaussian kernel of a point with itself is $1$ since the distance between a point and itself is $0$. The Gaussian kernel is also symmetric, so the kernel of the opposite points related to above ones will be the same. The kernel matrix is as following:
     
     \begin{equation*}
         \mathcal{A} = \begin{pmatrix}1 &  0.0183156389 & 0.000123409804 \\ 0.0183156389 & 1 & 0.367879441 \\  0.000123409804 & 0.367879441 & 1\end{pmatrix}
@@ -323,8 +318,6 @@ You are given the training data
     \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{p02.png}
-        \caption{}
-        \label{fig:my_label}
     \end{figure}
 \end{enumerate}
 \end{homeworkProblem}
@@ -362,6 +355,8 @@ The quadratic form can then be expressed as:
         & = c_{1}^{2} \lambda_{1} + \ldots + c_{n}^{2} \lambda_{n}
     \end{split}
 \end{equation*}
+
+Since $\boldsymbol x$ is not equal to the null vector, one of the constants will at least be non-zero.
 
 \end{homeworkProblem}
 
